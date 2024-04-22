@@ -1,7 +1,6 @@
 import allure
 import time
-import re
-from Suites.Sidebar.page_elements import PageElementsGames, SearchFunctions
+from Suites.Locators.page_elements import PageElementsGames, SearchFunctions
 
 
 class CasinoGamesSide(PageElementsGames, SearchFunctions):
