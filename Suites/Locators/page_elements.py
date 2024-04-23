@@ -266,4 +266,32 @@ class BannersLocatorsZeroDep(BaseSetUp):
         return self.page.locator("xpath=//div[contains(@class, 'swiper-slide') and contains(@class, '!flex')][9]")
 
 
-# class BannersLocatorsOneDep:
+class GameSuitLocators(BaseSetUp):
+    
+    @property
+    def search_field(self):
+        return self.page.locator("xpath=//input[@placeholder='Enter game name']")
+    
+    @property
+    def first_game_card(self):
+        return self.page.locator("xpath=//div[contains(@class, 'game-card') and contains(@class, 'z-0')][1]").first
+    
+    @property
+    def play_button(self):
+        return self.page.locator("xpath=//button[@title = 'play' and contains(@class, 'btn') and contains(@class, 'button-primary')][1]").first
+    
+    @property
+    def ingame_close_button(self):
+        return self.page.locator("xpath=//button[@title='close' and contains(@class, 'btn button-secondary max-w-[150px]') and text()='close']")
+    
+    @property
+    def sound_no_button(self):
+        return self.page.locator("xpath=//div[contains(@class, 'button no')]")
+    
+    @property
+    def spin_button(self):
+        return self.page.frame_locator("#game-iframe").frame_locator("iframe").locator("#btn-spinDesktop canvas").nth(1).click(position={"x":56,"y":52})
+    
+    @property
+    def warning(self):
+        return self.page.locator("xpath=//div[@id = 'modal_window']")
