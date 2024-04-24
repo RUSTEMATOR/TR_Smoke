@@ -1,14 +1,12 @@
 
 from playwright.sync_api import Page
-from Suites.BaseSetUp import BaseSetUp
+from Suites.Base.PageComponent import PageComponent
 
 
-
-
-class PageElementsGames:
+class PageElementsGames(PageComponent):
 
     def __init__(self, page: Page):
-        self.page = page
+        super().__init__(page)
 
     @property
     def log_in_button(self):
@@ -120,8 +118,12 @@ class PageElementsGames:
         return self.page.get_by_label("Mini", exact=True)
 
 
-
 class PageElementsTabs(PageElementsGames):
+
+
+    def __init__(self, page: Page):
+        super().__init__(page)
+
 
     @property
     def all_games_btn(self):
@@ -163,8 +165,11 @@ class PageElementsTabs(PageElementsGames):
     def game_card_third_jp(self):
         return self.page.locator('xpath=//*[@id="Tombriches"]/main/div/div/div[2]/div[3]/div/div[1]/div[1]/img')
 
-class SearchFunctions(BaseSetUp, PageElementsTabs):
 
+class SearchFunctions(PageElementsTabs):
+
+    def __init__(self, page: Page):
+        super().__init__(page)
     def game_cards_visible_jp(self):
         return (self.game_card_first_jp.is_visible() and
                 self.game_card_second_jp.is_visible() and
@@ -224,8 +229,10 @@ class SearchFunctions(BaseSetUp, PageElementsTabs):
                 self.page.locator(".max-w-\\[1100px\\] > div:nth-child(8)").is_visible() and
                 self.page.locator('xpath=//*[@id="Tombriches"]/main/div/div/div[3]/div/div[9]').is_visible())
 
-class BannersLocatorsZeroDep(BaseSetUp):
 
+class BannersLocatorsZeroDep:
+    def __init__(self, page: Page):
+        super().__init__(page)
 
 
     @property
@@ -266,11 +273,12 @@ class BannersLocatorsZeroDep(BaseSetUp):
         return self.page.locator("xpath=//div[contains(@class, 'swiper-slide') and contains(@class, '!flex')][9]")
 
 
-class GameSuitLocators(BaseSetUp):
-    
+class GameSuitLocators:
+    def __init__(self, page: Page):
+        super().__init__(page)
     @property
     def search_field(self):
-        return self.page.locator("xpath=//input[@placeholder='Enter game name']")
+        return self.page.get_by_placeholder("Enter game name")
     
     @property
     def first_game_card(self):
@@ -290,8 +298,8 @@ class GameSuitLocators(BaseSetUp):
     
     @property
     def spin_button(self):
-        return self.page.frame_locator("#game-iframe").frame_locator("iframe").locator("#btn-spinDesktop canvas").nth(1).click(position={"x":56,"y":52})
+        return self.page.frame_locator("#game-iframe").locator("#spinBtn")
     
     @property
     def warning(self):
-        return self.page.locator("xpath=//div[@id = 'modal_window']")
+        return self.page.frame_locator("#game-iframe").locator("xpath=//div[contains(@class, 'info-popup_message')]")

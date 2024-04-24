@@ -3,7 +3,7 @@ import time
 from Suites.Locators.page_elements import PageElementsGames, SearchFunctions
 
 
-class CasinoGamesSide(PageElementsGames, SearchFunctions):
+class CasinoGamesSide(SearchFunctions):
 
     @allure.title("Go to site")
     def open_site(self):

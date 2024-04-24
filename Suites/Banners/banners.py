@@ -1,6 +1,5 @@
 import allure
-import time
-from Suites.BaseSetUp import BaseSetUp
+from Suites.Base.BaseSetUp import BaseSetUp
 from Suites.Locators.page_elements import BannersLocatorsZeroDep
 
 
