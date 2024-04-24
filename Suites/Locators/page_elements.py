@@ -303,3 +303,22 @@ class GameSuitLocators:
     @property
     def warning(self):
         return self.page.frame_locator("#game-iframe").locator("xpath=//div[contains(@class, 'info-popup_message')]")
+
+    @property
+    def demo_button(self):
+        return self.page.locator(".controls > button:nth-child(2)").first
+
+    @property
+    def balance_text(self):
+        return self.page.locator("#depositPromocode").get_by_text("Balance")
+
+    @property
+    def seven_five_zero_button(self):
+        return self.page.locator("xpath=//button[@title='750']")
+
+
+    @property
+    def providers_dropdown(self):
+        return self.page.get_by_role("button", name="providers")
+
+

@@ -85,7 +85,7 @@ class LoginRegistration():
             allure.attach(self.page.screenshot(), name='Log in button is not clicked', attachment_type=allure.attachment_type.PNG)
             raise AssertionError from e
         finally:
-            time.sleep(5)
+            time.sleep(10)
             self.page.reload()
             self.enter_account()
     @allure.step("Enter account")

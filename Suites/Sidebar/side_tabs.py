@@ -64,6 +64,7 @@ class CasinoSideTabs(SearchFunctions):
             raise AssertionError from e
 
         finally:
+            time.sleep(10)
             self.page.goto('https://tombriches.com/')
             self.confirm_cookies()
 

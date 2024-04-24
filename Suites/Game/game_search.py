@@ -82,20 +82,6 @@ class InputTest(BaseSetUp, GameSuitLocators):
             self.make_a_bet()
 
 
-
-    # @allure.step("Turn off sound")
-    # def tun_off_sound(self):
-    #     try:
-    #         self.sound_no_button.click()
-    #         allure.attach(self.page.screenshot(), name='Sound button pressed', attachment_type=allure.attachment_type.PNG)
-    #
-    #     except Exception as e:
-    #         allure.attach(self.page.screenshot(), name='Sound button is not pressed', attachment_type=allure.attachment_type.PNG)
-    #         raise AssertionError from e
-    #
-    #     finally:
-    #         self.make_a_bet()
-
     @allure.step("Make a bet")
     def make_a_bet(self):
         try:

@@ -9,6 +9,8 @@ from Suites.Sidebar.side_casino_games import CasinoGamesSide
 from Suites.Sidebar.side_tabs import CasinoSideTabs
 from Suites.Banners.banners import BannersZeroDep
 from Suites.Game.game_search import InputTest
+from Suites.Game.demo_mode import DemoTest
+from Suites.Game.providers_test import ProvidersTest
 
 # @allure.suite("Registration")
 # def test_registration(page):
@@ -55,11 +57,22 @@ from Suites.Game.game_search import InputTest
 #     banners = BannersZeroDep(page)
 #     banners.set_up()
 #     banners.check_banners_position()
+#
+#
+# @allure.suite("Games suite")
+# def test_search_input(page):
+#     search = InputTest(page)
+#     search.set_up()
+#     search.click_on_input_field()
+#
+# @allure.suite("Games suite")
+# def test_demo_mode(page):
+#     search = DemoTest(page)
+#     search.set_up()
+#     search.click_on_input_field()
 
-
-@allure.suite("Games Tests")
-def test_search_input(page):
-    search = InputTest(page)
-    search.set_up()
-    search.click_on_input_field()
-
+@allure.suite("Game suite")
+def test_providers_dropdown(page):
+    providers = ProvidersTest(page)
+    providers.set_up()
+    providers.open_provider_dropdown()
