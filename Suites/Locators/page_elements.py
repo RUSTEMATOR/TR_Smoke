@@ -430,3 +430,11 @@ class MainSuiteLocators:
     @property
     def coping_success_popup(self):
         return self.page.locator("div").filter(has_text="Mail has been copied").nth(3)
+
+    @property
+    def wrong_oldpassword_popup(self):
+        return self.page.locator("div").filter(has_text="You have entered an incorrect").nth(3)
+
+    @property
+    def password_changed_success_popup(self):
+        return self.page.locator("div").filter(has_text="Password changed successfully").nth(3)

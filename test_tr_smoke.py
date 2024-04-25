@@ -12,6 +12,7 @@ from Suites.Game.game_search import InputTest
 from Suites.Game.demo_mode import DemoTest
 from Suites.Game.providers_test import ProvidersTest
 from Suites.Users_profile.users_profile import PersonalInfVer
+from Suites.Users_profile.security import Security
 
 # @allure.suite("Registration")
 # def test_registration(page):
@@ -83,3 +84,10 @@ def test_personal_info_verification(page):
     personal_info_verification = PersonalInfVer(page)
     personal_info_verification.set_up()
     personal_info_verification.enter_user_account()
+
+
+@allure.suite("Users profile suite")
+def test_security_tab(page):
+    security_tab = Security(page)
+    security_tab.set_up()
+    security_tab.enter_user_account()
