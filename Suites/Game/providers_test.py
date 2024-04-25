@@ -1,7 +1,7 @@
 import time
 
 import allure
-from playwright.sync_api import expect
+
 from Suites.Base.BaseSetUp import BaseSetUp
 from Suites.Locators.page_elements import GameSuitLocators
 

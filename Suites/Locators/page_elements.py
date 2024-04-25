@@ -1,4 +1,4 @@
-
+import re
 from playwright.sync_api import Page
 from Suites.Base.PageComponent import PageComponent
 
@@ -322,3 +322,111 @@ class GameSuitLocators:
         return self.page.get_by_role("button", name="providers")
 
 
+class MainSuiteLocators:
+
+    def __init__(self, page: Page):
+        super().__init__(page)
+
+    @property
+    def account_button(self):
+        return self.page.get_by_role("button", name="Account")
+
+    @property
+    def verification_tab(self):
+        return self.page.locator("div").filter(has_text=re.compile(r"^Verification$"))
+
+    @property
+    def title_uploading_documents(self):
+        return self.page.get_by_text("Uploading of documents for")
+
+    @property
+    def title_proof_identity(self):
+        return self.page.get_by_text("Proof of Identity:")
+
+    @property
+    def title_proof_address(self):
+        return self.page.get_by_text("Proof of Address:")
+
+    @property
+    def title_proof_deposit(self):
+        return self.page.get_by_text("Proof of Deposit:")
+
+    @property
+    def security_tab(self):
+        return self.page.locator("div").filter(has_text=re.compile(r"^Security$"))
+
+    @property
+    def oldpass_input(self):
+        return self.page.get_by_placeholder("Enter old password")
+
+    @property
+    def newpass_input(self):
+        return self.page.locator("#password-input")
+
+    @property
+    def repeat_newpass(self):
+        return self.page.locator("input[name=\"repeatPassword\"]")
+
+    @property
+    def main_tab(self):
+        return self.page.get_by_text("Users_profile", exact=True)
+
+    @property
+    def first_name_input(self):
+        return self.page.get_by_placeholder("First name")
+
+    @property
+    def last_name_input(self):
+        return self.page.get_by_placeholder("Last name")
+
+    @property
+    def day_dropdown(self):
+        return self.page.get_by_text("Day")
+
+    @property
+    def month_dropdown(self):
+        return self.page.get_by_text("Month")
+
+    @property
+    def year_dropdown(self):
+        return self.page.get_by_text("Year")
+
+    @property
+    def city_input(self):
+        return self.page.get_by_placeholder("City")
+
+    @property
+    def postcode_input(self):
+        return self.page.get_by_placeholder("Postcode")
+
+    @property
+    def full_address_house_number_input(self):
+        return self.page.get_by_placeholder("Full address (house number,")
+
+    @property
+    def country_dropdown(self):
+        return self.page.locator('input[name="country"]')
+
+    @property
+    def male_radio_button(self):
+        return self.page.locator("div").filter(has_text=re.compile(r"^Male$")).get_by_role("radio")
+
+    @property
+    def female_radio_button(self):
+        return self.page.locator("div").filter(has_text=re.compile(r"^Female$")).get_by_role("radio")
+
+    @property
+    def save_button(self):
+        return self.page.get_by_role("button", name="Save")
+
+    @property
+    def confirmation_popup(self):
+        return self.page.get_by_text("Profile data updated")
+
+    @property
+    def user_email(self):
+        return self.page.get_by_text("samoilenkofluttershy@gmail.com")
+
+    @property
+    def coping_success_popup(self):
+        return self.page.locator("div").filter(has_text="Mail has been copied").nth(3)

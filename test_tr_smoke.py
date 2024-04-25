@@ -11,6 +11,7 @@ from Suites.Banners.banners import BannersZeroDep
 from Suites.Game.game_search import InputTest
 from Suites.Game.demo_mode import DemoTest
 from Suites.Game.providers_test import ProvidersTest
+from Suites.Users_profile.users_profile import PersonalInfVer
 
 # @allure.suite("Registration")
 # def test_registration(page):
@@ -71,8 +72,14 @@ from Suites.Game.providers_test import ProvidersTest
 #     search.set_up()
 #     search.click_on_input_field()
 
-@allure.suite("Game suite")
-def test_providers_dropdown(page):
-    providers = ProvidersTest(page)
-    providers.set_up()
-    providers.open_provider_dropdown()
+# @allure.suite("Game suite")
+# def test_providers_dropdown(page):
+#     providers = ProvidersTest(page)
+#     providers.set_up()
+#     providers.open_provider_dropdown()
+
+@allure.suite("Users profile suite")
+def test_personal_info_verification(page):
+    personal_info_verification = PersonalInfVer(page)
+    personal_info_verification.set_up()
+    personal_info_verification.enter_user_account()

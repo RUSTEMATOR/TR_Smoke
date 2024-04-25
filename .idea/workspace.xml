@@ -1,20 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="AnalysisUIOptions">
-    <option name="ANALYZE_INJECTED_CODE" value="false" />
-  </component>
   <component name="AutoImportSettings">
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ef8ba311-a27b-4873-8fa8-2476fecadfc5" name="Changes" comment="added many new suites">
+    <list default="true" id="70e58522-518f-4262-bd0a-f9b09c684795" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Suites/Game/game_search.py" beforeDir="false" afterPath="$PROJECT_DIR$/Suites/Game/game_search.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Suites/Base/BaseSetUp.py" beforeDir="false" afterPath="$PROJECT_DIR$/Suites/Base/BaseSetUp.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Suites/Game/providers_test.py" beforeDir="false" afterPath="$PROJECT_DIR$/Suites/Game/providers_test.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Suites/Locators/page_elements.py" beforeDir="false" afterPath="$PROJECT_DIR$/Suites/Locators/page_elements.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Suites/Login_Signup/login.py" beforeDir="false" afterPath="$PROJECT_DIR$/Suites/Login_Signup/login.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Suites/Login_Signup/logout.py" beforeDir="false" afterPath="$PROJECT_DIR$/Suites/Login_Signup/logout.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Suites/Sidebar/side_casino_games.py" beforeDir="false" afterPath="$PROJECT_DIR$/Suites/Sidebar/side_casino_games.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Suites/Sidebar/side_tabs.py" beforeDir="false" afterPath="$PROJECT_DIR$/Suites/Sidebar/side_tabs.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/test_lolllol.py" beforeDir="false" afterPath="$PROJECT_DIR$/test_lolllol.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/test_tr_smoke.py" beforeDir="false" afterPath="$PROJECT_DIR$/test_tr_smoke.py" afterDir="false" />
     </list>
@@ -41,42 +36,32 @@
 }</component>
   <component name="GithubPullRequestsUISettings">{
   &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;https://github.com/RUSTEMATOR/TR_Smoke&quot;,
-    &quot;accountId&quot;: &quot;2f584b0d-d7f8-4b3d-8729-aa7d036b1c53&quot;
+    &quot;url&quot;: &quot;https://github.com/RUSTEMATOR/TR_Smoke.git&quot;,
+    &quot;accountId&quot;: &quot;c10dbe39-dbcd-4515-865a-f5a41eb2e97b&quot;
   }
 }</component>
   <component name="ProblemsViewState">
     <option name="selectedTabId" value="CurrentFile" />
   </component>
   <component name="ProjectColorInfo">{
-  &quot;customColor&quot;: &quot;&quot;,
-  &quot;associatedIndex&quot;: 0
+  &quot;associatedIndex&quot;: 6
 }</component>
-  <component name="ProjectId" id="2f9Ql3KgxqN6iNnZOA29xU15MbY" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectId" id="2fDjv9gdEutv6oF8AgGwmOj4pky" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Python tests.pytest in test_lolllol.py.executor": "Run",
-    "Python.banners.executor": "Debug",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "master",
-    "ignore.virus.scanning.warn.message": "true",
-    "last_opened_file_path": "C:/Users/User/Desktop/Automation/TR_Smoke",
-    "run.code.analysis.last.selected.profile": "aDefault",
-    "settings.editor.selected.configurable": "preferences.pluginManager"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;full.screen.before.presentation.mode&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\User\Desktop\Automation\TR_Smoke\Suites\Base" />
-      <recent name="C:\Users\User\Desktop\Automation\TR_Smoke\Suites\Login_Signup" />
-      <recent name="C:\Users\User\Desktop\Automation\TR_Smoke\Suites\Locators" />
-      <recent name="C:\Users\User\Desktop\Automation\TR_Smoke\Suites\Banners" />
-      <recent name="C:\Users\User\Desktop\Automation\TR_Smoke\Suites" />
+      <recent name="C:\Users\User\PycharmProjects\TR_Smoke_\TR_Smoke" />
     </key>
   </component>
   <component name="SharedIndexes">
@@ -89,16 +74,12 @@
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="ef8ba311-a27b-4873-8fa8-2476fecadfc5" name="Changes" comment="" />
-      <created>1713210961304</created>
+      <changelist id="70e58522-518f-4262-bd0a-f9b09c684795" name="Changes" comment="" />
+      <created>1713342770906</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1713210961304</updated>
+      <updated>1713342770906</updated>
     </task>
     <servers />
-  </component>
-  <component name="VcsManagerConfiguration">
-    <MESSAGE value="2 suites + started login suite" />
-    <option name="LAST_COMMIT_MESSAGE" value="2 suites + started login suite" />
   </component>
 </project>

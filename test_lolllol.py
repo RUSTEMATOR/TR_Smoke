@@ -7,27 +7,26 @@ def run(playwright: Playwright) -> None:
     context = browser.new_context()
     page = context.new_page()
     page.goto("https://tombriches.com/")
-    page.get_by_text("providersTopNewJackpotsSlotsMegawaysCrashFruitsBonus gamesDrops & Wins").click()
-    page.get_by_role("button", name="providers").click()
     page.get_by_role("button", name="Log in").click()
     page.get_by_placeholder("E-mail").click()
     page.get_by_placeholder("E-mail").fill("samoilenkofluttershy@gmail.com")
-    page.get_by_placeholder("Password").click()
+    page.locator(".flex > div > .relative").first.click()
     page.get_by_placeholder("Password").fill("193786Az.")
-    page.locator("div").filter(has_text=re.compile(r"^Log inForgot your password\?$")).get_by_role("button").click()
-    page.locator(".cursor-pointer").first.click()
-    page.get_by_role("button", name="providers").click()
-    page.get_by_text("Spribe").click()
-    page.locator("div").filter(has_text=re.compile(r"^Spribe$")).click()
-    page.get_by_role("button", name="providers").click()
-    page.get_by_text("Play'n'Go").click()
-    page.locator("div").filter(has_text=re.compile(r"^Play'n'Go$")).click()
-    page.get_by_role("button", name="providers").click()
-    page.get_by_text("Pragmatic Play Live").click()
-    page.locator("div").filter(has_text=re.compile(r"^Pragmatic Play Live$")).click()
-    page.get_by_role("button", name="providers").click()
-    page.get_by_text("Betsoft", exact=True).click()
-    page.locator("div").filter(has_text=re.compile(r"^Betsoft$")).click()
+    page.locator("path").first.click()
+    page.get_by_role("button", name="Account").click()
+
+
+    page.locator("div").filter(has_text=re.compile(r"^Сountry$")).locator("div").nth(2).click()
+    page.locator("div").filter(has_text=re.compile(r"^Female$")).get_by_role("radio").check()
+    page.locator("div").filter(has_text=re.compile(r"^Male$")).get_by_role("radio").check()
+    page.get_by_role("button", name="ok").click()
+    page.get_by_role("button", name="Save").click()
+    page.locator("div").filter(has_text=re.compile(r"^Female$")).get_by_role("radio").check()
+    page.get_by_role("button", name="Save").click()
+    page.locator("div").filter(has_text=re.compile(r"^Email verification$")).locator("div").click()
+    page.locator("div").filter(has_text=re.compile(r"^Male$")).get_by_role("radio").check()
+    page.get_by_role("button", name="Save").click()
+    page.get_by_text("Profile data updated").click()
 
     # ---------------------
     context.close()
@@ -36,7 +35,6 @@ def run(playwright: Playwright) -> None:
 
 with sync_playwright() as playwright:
     run(playwright)
-
 
 
 
