@@ -10,31 +10,31 @@ def run(playwright: Playwright) -> None:
     page.get_by_role("button", name="Log in").click()
     page.get_by_placeholder("E-mail").click()
     page.get_by_placeholder("E-mail").fill("samoilenkofluttershy@gmail.com")
+    page.get_by_placeholder("Password").click()
+    page.get_by_placeholder("Password").fill("193786Az")
     page.locator(".flex > div > .relative").first.click()
+    page.locator(".flex > div > .relative").first.click()
+    page.locator("div").filter(has_text=re.compile(r"^Log inForgot your password\?$")).get_by_role("img").dblclick()
+    page.locator("div").filter(has_text=re.compile(r"^Log inForgot your password\?$")).get_by_role("img").click()
+    page.get_by_placeholder("Password").click()
     page.get_by_placeholder("Password").fill("193786Az.")
-    page.locator("path").first.click()
+    page.locator("div").filter(has_text=re.compile(r"^Log inForgot your password\?$")).get_by_role("button").click()
+    page.locator(".cursor-pointer").first.click()
     page.get_by_role("button", name="Account").click()
-
-
-    page.locator("div").filter(has_text=re.compile(r"^Сountry$")).locator("div").nth(2).click()
-    page.locator("div").filter(has_text=re.compile(r"^Female$")).get_by_role("radio").check()
-    page.locator("div").filter(has_text=re.compile(r"^Male$")).get_by_role("radio").check()
-    page.get_by_role("button", name="ok").click()
-    page.get_by_role("button", name="Save").click()
-    page.locator("div").filter(has_text=re.compile(r"^Female$")).get_by_role("radio").check()
-    page.get_by_role("button", name="Save").click()
-    page.locator("div").filter(has_text=re.compile(r"^Email verification$")).locator("div").click()
-    page.locator("div").filter(has_text=re.compile(r"^Male$")).get_by_role("radio").check()
-    page.get_by_role("button", name="Save").click()
-    page.get_by_text("Profile data updated").click()
-
-    # ---------------------
-    context.close()
-    browser.close()
-
-
-with sync_playwright() as playwright:
-    run(playwright)
-
-
-
+    page.get_by_label("Wallet").click()
+    page.locator("div").filter(has_text=re.compile(r"^ActiveBalanceC\$ 0\.06funds withdrawnC\$ 0\.00bonuses in queue0deposit$")).get_by_role("button").click()
+    page.locator("[id=\"\\32 \"]").check()
+    page.get_by_role("button", name="60").click()
+    page.locator("#depositPromocode").get_by_role("button", name="deposit").click()
+    page.get_by_role("button", name="confirm").click()
+    page.get_by_placeholder("DialingCode").click()
+    page.get_by_placeholder("DialingCode").fill("875548")
+    page.get_by_role("button", name="confirm").click()
+    page.locator("div").filter(has_text=re.compile(r"^Nationality \(GB\)$")).locator("div").click()
+    page.get_by_placeholder("Nationality (GB)").fill("Donkey")
+    page.get_by_role("button", name="confirm").click()
+    page.frame_locator("iframe[name=\"\\32 \\.8743708367345974e\\+24\"]").get_by_text("ENDeposit$60.00 Fair Game G.P").click()
+    page.frame_locator("iframe[name=\"\\32 \\.8743708367345974e\\+24\"]").get_by_text("Fair Game G.P. N.V.").click()
+    page.frame_locator("iframe[name=\"\\32 \\.8743708367345974e\\+24\"]").get_by_role("button", name="Create account").click()
+    page.goto("https://tombriches.com/account/wallet/deposit")
+    page.goto("https://tombriches.com/account/wallet/balance")

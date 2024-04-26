@@ -438,3 +438,75 @@ class MainSuiteLocators:
     @property
     def password_changed_success_popup(self):
         return self.page.locator("div").filter(has_text="Password changed successfully").nth(3)
+
+
+class WalletLocators(MainSuiteLocators):
+
+    @property
+    def wallet_tab(self):
+        return self.page.get_by_label("Wallet")
+
+
+    @property
+    def sixty_deposit_sum(self):
+        return self.page.get_by_role("button", name="60")
+
+    @property
+    def deposit_tab(self):
+        return self.page.locator("xpath=//aside//div//button[@title='deposit' and contains(@class, 'btn') and contains(text(), 'deposit')][1]")
+
+
+    @property
+    def mastercard_button(self):
+        return self.page.locator("//input[@type='radio' and @id='0' and @name='0' and @value='0']")
+
+    @property
+    def deposit_button(self):
+        return self.page.locator("xpath=//button[@title='deposit' and contains(@class, 'btn button-primary !min-w-full')]")
+
+    @property
+    def order_window(self):
+        return self.page.locator("xpath=//div[contains(@class, 'order-info-compact')]")
+
+    @property
+    def withdrawal_tab(self):
+        return self.page.get_by_text("Funds withdrawal")
+
+
+    @property
+    def withdrawal_mifinity_button(self):
+        return self.page.locator("//input[@type='radio' and contains(@class, 'absolute left-0 top-0 h-[100%] w-[100%] cursor-pointer opacity-0') and @id='3' and @name='3' and @value='3' ]")
+
+
+    @property
+    def account_input(self):
+        return self.page.get_by_placeholder("Account")
+
+    @property
+    def amount_input(self):
+        return self.page.get_by_placeholder("Amount")
+
+
+    @property
+    def send_button(self):
+        return self.page.get_by_role("button", name="send")
+
+
+    @property
+    def transaction_history_tab(self):
+        return self. page.get_by_text("Transaction history")
+
+    @property
+    def cancel_button(self):
+        return self.page.get_by_role("button", name="Cancel")
+
+    @property
+    def date_from_input(self):
+        return self.page.get_by_placeholder("Date From")
+
+    @property
+    def date_to_input(self):
+        return self.page.get_by_placeholder("Date To")
+
+
+
