@@ -6,7 +6,6 @@ on:
       deployment_target:
         description: Choose target
         required: true
-        default:
         type: choice
         options:
           - Run tests
@@ -20,36 +19,30 @@ jobs:
     - name: setup Python
       uses: actions/setup-python@v4
       with:
-        python-version: "3.8"
+        python-version: "3.11"
 
     - name: Install Chrome
       run: sudo apt-get install google-chrome-stable
 
-    - name: Add the ExpressVPN repository
-      run: sudo add-apt-repository ppa:expressvpn/expressvpn
-
-      # Install dependencies
-    - name: Install dependencies
-      run: pip install -r requirements.txt
-    - name: Ensure browsers are installed
-      run: python -m playwright install --with-deps
-      
-    - name: Update Package Lists
-      run: sudo apt-get update
-      
     - name: Install ExpressVPN
-      run: sudo apt-get install -y expressvpn
+      run: |
+        wget https://www.expressvpn.works/expressvpn_3.0.0_amd64.deb
+        sudo dpkg -i expressvpn_3.0.0_amd64.deb
 
-    - name: Connect to Ireland Location
-      run: expressvpn connect ireland
+    - name: Activate ExpressVPN
+      run: |
+        echo "EFG9AGUZUNGCKRPZSV5K8TJ" | expressvpn activate
+
+    - name: Connect to VPN Server
+      run: |
+        expressvpn connect "Ireland"
+
+    - name: Disconnect from VPN Server
+      run: |
+        expressvpn disconnect
       
     - name: Run tests
       if: "github.event.inputs.deployment_target == 'Run tests'"
-      run: pytest -v --tracing=retain-on-failure test_tr_smoke.py
+      run: pytest -v test_tr_smoke.py
       
-    - uses: actions/upload-artifact@v4
-      if: ${{ !cancelled() }}
-      with:
-        name: playwright-traces
-        path: test-results/
 
