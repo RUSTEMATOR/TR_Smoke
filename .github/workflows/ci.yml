@@ -32,5 +32,5 @@ jobs:
       run: playwright install
     - name: Run tests
       if: "github.event.inputs.deployment_target == 'Run tests'"
-      run: pytest test_tr_smoke.py
+      run: pytest -v test_tr_smoke.py
 
