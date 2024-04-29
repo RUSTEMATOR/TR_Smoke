@@ -13,7 +13,7 @@ from Suites.Game.demo_mode import DemoTest
 from Suites.Game.providers_test import ProvidersTest
 from Suites.Users_profile.users_profile import PersonalInfVer
 from Suites.Users_profile.security import Security
-from Suites.Users_profile.wallet import PositiveWalletTest
+from Suites.Users_profile.wallet import PositiveWalletTest, NegativeWalletTest
 
 @allure.suite("Registration")
 def test_registration(page):
@@ -98,5 +98,13 @@ def test_wallet_positive(page):
     wallet_positive = PositiveWalletTest(page)
     wallet_positive.set_up()
     wallet_positive.enter_user_account()
+
+
+
+@allure.suite("Users profile suite")
+def test_wallet_negative(page):
+    wallet_negative = NegativeWalletTest(page)
+    wallet_negative.set_up()
+    wallet_negative.enter_user_account()
 
 

@@ -508,5 +508,12 @@ class WalletLocators(MainSuiteLocators):
     def date_to_input(self):
         return self.page.get_by_placeholder("Date To")
 
+    @property
+    def error_message(self):
+        return self.page.locator("div").filter(has_text="Your account has not been").nth(3)
 
+
+    @property
+    def withdrawal_skrill_button(self):
+        return self.page.locator("xpath=//input[@type='radio' and contains(@class, 'absolute left-0 top-0 h-[100%] w-[100%] cursor-pointer opacity-0') and @id='2' and @name='2' and @value='2' ]")
 

@@ -155,6 +155,7 @@ class Registration():
         city_field = self.page.get_by_placeholder("City")
         postcode_field = self.page.get_by_placeholder("Postcode")
         full_address_house_number_field = self.page.get_by_placeholder("Full address (house number,")
+        phone_number_field = self.page.get_by_placeholder("Phone number")
 
 
         try:
@@ -197,6 +198,10 @@ class Registration():
             full_address_house_number_field.click()
             allure.attach(self.page.screenshot(), name='Full address (house number, field clicked', attachment_type=allure.attachment_type.PNG)
             full_address_house_number_field.fill("Scripting street 34")
+
+            phone_number_field.click()
+            allure.attach(self.page.screenshot(), name='Phone number field clicked', attachment_type=allure.attachment_type.PNG)
+            phone_number_field.fill("855-588-901")
 
         except Exception as e:
             allure.attach(self.page.screenshot(), name='Personal info is not filled', attachment_type=allure.attachment_type.PNG)
