@@ -1,0 +1,34 @@
+name: TR_Smoke
+
+on:
+  workflow_dispatch:
+    inputs:
+      deployment_target:
+        description: Choose target
+        required: true
+        default:
+        type: choice
+        options:
+          - Run tests
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+    - name: setup Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: "3.12"
+
+    - name: Install Chrome
+      run: sudo apt-get install google-chrome-stable
+
+      # Install dependencies
+    - name: Install dependencies
+      run: pip install -r requirements.txt
+    - name: Run tests
+      if: "github.event.inputs.deployment_target == 'Run tests'"
+      run: pytest test_tr_smoke.py
+

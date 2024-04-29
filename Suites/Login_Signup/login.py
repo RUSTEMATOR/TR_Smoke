@@ -200,6 +200,7 @@ class LoginButton():
                           attachment_type=allure.attachment_type.PNG)
             raise AssertionError from e
         finally:
+            time.sleep(5)
             self.check_email()
 
     @allure.step("Check email")
@@ -210,5 +211,3 @@ class LoginButton():
             pass
         else:
             raise AssertionError("Email is not visible")
-
-        time.sleep(10)

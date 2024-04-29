@@ -1,4 +1,5 @@
 import allure
+import time
 from Suites.Base.BaseSetUp import BaseSetUp
 from Suites.Locators.page_elements import BannersLocatorsZeroDep
 
@@ -23,6 +24,7 @@ class BannersZeroDep(BaseSetUp, Locators):
     def set_up_func(self):
         try:
             super().set_up()
+            time.sleep(20)
         except Exception as e:
             allure.attach(self.page.screenshot(), name='Set up failed', attachment_type=allure.attachment_type.PNG)
             raise AssertionError from e
@@ -65,4 +67,3 @@ class BannersZeroDep(BaseSetUp, Locators):
 
 
 
-# class BannersOneDep(BaseSetUp, Locators):

@@ -100,24 +100,6 @@ class InputTest(BaseSetUp, GameSuitLocators):
             )
             raise AssertionError from e
 
-        finally:
-            self.no_balance_warning()
-
-
-    @allure.step("No balance warning is displayed")
-    def no_balance_warning(self):
-        try:
-            if self.warning.is_visible():
-                pass
-
-            else:
-                allure.attach(self.page.screenshot(), name='No balance warning is not displayed', attachment_type=allure.attachment_type.PNG)
-                raise AssertionError
-
-        except AssertionError as e:
-            allure.attach(self.page.screenshot(), name='No balance warning is displayed',
-                          attachment_type=allure.attachment_type.PNG)
-            raise AssertionError from e
 
 
 

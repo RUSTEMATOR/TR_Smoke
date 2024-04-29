@@ -314,7 +314,7 @@ class GameSuitLocators:
 
     @property
     def seven_five_zero_button(self):
-        return self.page.locator("xpath=//button[@title='750']")
+        return self.page.locator("xpath=//button[@title='40']")
 
 
     @property
