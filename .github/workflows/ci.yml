@@ -26,7 +26,7 @@ jobs:
 
     - name: Install ExpressVPN
       run: |
-        wget https://www.expressvpn.works/expressvpn_3.0.0_amd64.deb
+        cd ~/Downloads/
         sudo dpkg -i expressvpn_3.0.0_amd64.deb
 
     - name: Activate ExpressVPN
