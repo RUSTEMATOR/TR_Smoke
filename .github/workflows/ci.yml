@@ -32,7 +32,7 @@ jobs:
 
     - name: Install ExpressVPN
       run: |
-        sudo dpkg -i expressvpn_3.0.0_amd64.deb
+        sudo apt-get install expressvpn
 
     - name: Activate ExpressVPN
       run: |
