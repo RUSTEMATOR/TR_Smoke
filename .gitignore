@@ -1,0 +1,5 @@
+# Ignore allure-results directory
+allure-results/
+
+# Ignore all files in the pycache directory
+pycache/
