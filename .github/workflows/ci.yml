@@ -30,9 +30,12 @@ jobs:
       run: pip install -r requirements.txt
     - name: Ensure browsers are installed
       run: python -m playwright install --with-deps
-    - name: Install ExpressVPN
+      
+    - name: Update Package Lists
       run: sudo apt-get update
-       sudo apt-get install -y expressvpn
+      
+    - name: Install ExpressVPN
+      run: sudo apt-get install -y expressvpn
 
     - name: Connect to Ireland Location
       run: expressvpn connect ireland
