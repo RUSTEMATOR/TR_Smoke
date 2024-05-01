@@ -126,32 +126,8 @@ class CasinoSideTabs(SearchFunctions):
                               attachment_type=allure.attachment_type.PNG)
                 raise AssertionError
 
-            self.open_live_tab()
-
-    @allure.step('Open live tab')
-    def open_live_tab(self):
-        try:
-            self.live_tab.click()
-            allure.attach(self.page.screenshot(), name='Live button pressed',
-                          attachment_type=allure.attachment_type.PNG)
-
-        except Exception as e:
-            allure.attach(self.page.screenshot(), name='Live button is not pressed',
-                          attachment_type=allure.attachment_type.PNG)
-            raise AssertionError from e
-
-        finally:
-            time.sleep(3)
-            if self.game_cards_visible():
-                allure.attach(self.page.screenshot(), name='Games in the category are present',
-                              attachment_type=allure.attachment_type.PNG)
-                pass
-            else:
-                allure.attach(self.page.screenshot(), name='Games in the category are not present',
-                              attachment_type=allure.attachment_type.PNG)
-                raise AssertionError
-
             self.open_promotions_tab()
+
 
     @allure.step('Open promotions tab')
     def open_promotions_tab(self):

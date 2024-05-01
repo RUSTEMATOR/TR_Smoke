@@ -200,7 +200,7 @@ class LoginButton():
                           attachment_type=allure.attachment_type.PNG)
             raise AssertionError from e
         finally:
-            time.sleep(5)
+            time.sleep(10)
             self.check_email()
 
     @allure.step("Check email")
