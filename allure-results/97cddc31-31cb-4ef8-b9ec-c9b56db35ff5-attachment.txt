@@ -1,1 +1,0 @@
-Error checking the page: 'PersonalInfVer' object has no attribute 'title_proof_of_identity'
