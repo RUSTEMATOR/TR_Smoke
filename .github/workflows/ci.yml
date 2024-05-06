@@ -29,10 +29,15 @@ jobs:
     - name: Install dependencies
       run: pip install -r requirements.txt
 
+    - name: Download ExpressVPN installer
+      run: |
+        wget https://www.expressvpn.works/clients/linux/expressvpn_3.10.0.74-1_arm64.deb
+        # Replace the URL with the correct one for your architecture if necessary
+    
     - name: Install ExpressVPN
       run: |
-        sudo apt-get update
-        sudo apt-get install -y expressvpn
+        sudo dpkg -i expressvpn_3.10.0.74-1_arm64.deb
+        sudo apt-get install -f
 
     - name: Activate ExpressVPN
       run: expressvpn activate
