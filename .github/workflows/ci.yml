@@ -29,10 +29,15 @@ jobs:
     - name: Install dependencies
       run: pip install -r requirements.txt
 
+    - name: Download ExpressVPN installer
+      run: |
+        wget https://www.expressvpn.works/clients/linux/expressvpn_3.10.0.74-1_arm64.deb
+        # Replace the URL with the correct one for your architecture if necessary
+    
     - name: Install ExpressVPN
       run: |
-        sudo dpkg -i expressvpn_2.3.4-1_amd64.deb
-        sudo pip install expressvpn-python
+        sudo dpkg -i expressvpn_3.10.0.74-1_arm64.deb
+        sudo apt-get install -f
 
     - name: Activate ExpressVPN
       run: expressvpn activate
@@ -40,12 +45,11 @@ jobs:
         EXPRESSVPN_ACTIVATION_CODE: ${{ secrets.EXPRESSVPN_ACTIVATION_CODE }}
       # Note: You'll need to manually handle the activation step or find a workaround for automation.
 
-    - name: Set ExpressVPN preferences
+    - name: Connect to ExpressVPN Ireland
       run: |
+        expressvpn activate
         expressvpn preferences set send_diagnostics false
-
-    - name: Connect to Ireland server via ExpressVPN
-      run: expressvpn connect ie
+        expressvpn connect ireland
 
     - name: Configure playwright
       run: playwright install
