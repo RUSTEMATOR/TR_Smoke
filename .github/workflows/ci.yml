@@ -28,6 +28,25 @@ jobs:
       # Install dependencies
     - name: Install dependencies
       run: pip install -r requirements.txt
+
+    - name: Install ExpressVPN
+      run: |
+        sudo dpkg -i expressvpn_2.3.4-1_amd64.deb
+        sudo pip install expressvpn-python
+
+    - name: Activate ExpressVPN
+      run: expressvpn activate
+      env:
+        EXPRESSVPN_ACTIVATION_CODE: ${{ secrets.EXPRESSVPN_ACTIVATION_CODE }}
+      # Note: You'll need to manually handle the activation step or find a workaround for automation.
+
+    - name: Set ExpressVPN preferences
+      run: |
+        expressvpn preferences set send_diagnostics false
+
+    - name: Connect to Ireland server via ExpressVPN
+      run: expressvpn connect ie
+
     - name: Configure playwright
       run: playwright install
 
