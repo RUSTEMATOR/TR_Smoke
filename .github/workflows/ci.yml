@@ -20,17 +20,6 @@ jobs:
       NO_PROXY: "localhost,127.0.0.1"
 
     steps:
-    - name: Install CA certificates
-      run: sudo apt-get install -y ca-certificates
-
-    - name: Configure Git to use proxy and CA certificates
-      run: |
-        git config --global http.proxy $HTTP_PROXY
-        git config --global https.proxy $HTTPS_PROXY
-        git config --global http.sslCAInfo /etc/ssl/certs/ca-certificates.crt
-        git config --global https.sslCAInfo /etc/ssl/certs/ca-certificates.crt
-
-
     - name: Checkout repository
       uses: actions/checkout@v3
     - name: setup Python
@@ -40,6 +29,13 @@ jobs:
 
     - name: Install Chrome
       run: sudo apt-get install google-chrome-stable
+
+    - name: Configure Git to use proxy and disable SSL verification
+      run: |
+        git config --global http.proxy $HTTP_PROXY
+        git config --global https.proxy $HTTPS_PROXY
+        git config --global http.sslVerify false  # Disable SSL verification (use with caution)
+        git config --global https.sslVerify false
 
       # Install dependencies
     - name: Install dependencies
