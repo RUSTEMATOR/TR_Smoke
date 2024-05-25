@@ -23,6 +23,13 @@ jobs:
     - name: Install CA certificates
       run: sudo apt-get install -y ca-certificates
 
+    - name: Configure Git to use proxy and CA certificates
+      run: |
+        git config --global http.proxy $HTTP_PROXY
+        git config --global https.proxy $HTTPS_PROXY
+        git config --global http.sslCAInfo /etc/ssl/certs/ca-certificates.crt
+        git config --global https.sslCAInfo /etc/ssl/certs/ca-certificates.crt
+
 
     - name: Checkout repository
       uses: actions/checkout@v3
