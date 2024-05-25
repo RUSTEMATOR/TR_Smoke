@@ -30,13 +30,6 @@ jobs:
     - name: Install Chrome
       run: sudo apt-get install google-chrome-stable
 
-    - name: Configure Git to use proxy and disable SSL verification
-      run: |
-        git config --global http.proxy $HTTP_PROXY
-        git config --global https.proxy $HTTPS_PROXY
-        git config --global http.sslVerify false  # Disable SSL verification (use with caution)
-        git config --global https.sslVerify false
-
       # Install dependencies
     - name: Install dependencies
       run: pip install -r requirements.txt
