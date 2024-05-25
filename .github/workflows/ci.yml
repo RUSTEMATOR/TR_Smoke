@@ -14,6 +14,11 @@ jobs:
   test:
     runs-on: ubuntu-latest
 
+    env:
+      HTTP_PROXY: http://63.32.1.88:80
+      HTTPS_PROXY: http://63.32.1.88:80
+      NO_PROXY: "localhost,127.0.0.1"
+
     steps:
     - name: Checkout repository
       uses: actions/checkout@v3
@@ -28,28 +33,6 @@ jobs:
       # Install dependencies
     - name: Install dependencies
       run: pip install -r requirements.txt
-
-    - name: Download ExpressVPN installer
-      run: |
-        wget https://www.expressvpn.works/clients/linux/expressvpn_3.10.0.74-1_arm64.deb
-        # Replace the URL with the correct one for your architecture if necessary
-    
-    - name: Install ExpressVPN
-      run: |
-        sudo dpkg -i expressvpn_3.10.0.74-1_arm64.deb
-        sudo apt-get install -f
-
-    - name: Activate ExpressVPN
-      run: expressvpn activate
-      env:
-        EXPRESSVPN_ACTIVATION_CODE: ${{ secrets.EXPRESSVPN_ACTIVATION_CODE }}
-      # Note: You'll need to manually handle the activation step or find a workaround for automation.
-
-    - name: Connect to ExpressVPN Ireland
-      run: |
-        expressvpn activate
-        expressvpn preferences set send_diagnostics false
-        expressvpn connect ireland
 
     - name: Configure playwright
       run: playwright install
