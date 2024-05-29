@@ -7,7 +7,7 @@ from Suites.Base.BaseSetUp import BaseSetUp
 class LoginRegistration(BaseSetUp):
 
     def __init__(self, playwright: Playwright):
-        self.browser = playwright.chromium.launch(headless=False,
+        self.browser = playwright.chromium.launch(headless=True,
                                                   proxy={
                                                       'server': 'http://138.197.150.103:8090',
                                                       'username': 'kbc',
@@ -116,7 +116,7 @@ class LoginRegistration(BaseSetUp):
 
 class LoginButton():
     def __init__(self, playwright: Playwright):
-        self.browser = playwright.chromium.launch(headless=False,
+        self.browser = playwright.chromium.launch(headless=True,
                                                   proxy={
                                                       'server': 'http://138.197.150.103:8090',
                                                       'username': 'kbc',
