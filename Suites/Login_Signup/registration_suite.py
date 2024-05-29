@@ -1,8 +1,8 @@
 import allure
 import time
 import re
-from playwright.sync_api import Page
-
+from playwright.sync_api import sync_playwright, Playwright
+from Suites.Base.BaseSetUp import BaseSetUp
 
 class Generator():
     @staticmethod
@@ -15,9 +15,18 @@ class Generator():
         automaton = "automaton_"
         return f'{automaton}{random_word}{random_numbers}@kingbilly.xyz'
 
+
+
 class Registration():
-    def __init__(self, page: Page):
-        self.page = page
+    def __init__(self, playwright: Playwright):
+        self.browser = playwright.chromium.launch(headless=False,
+                                                  proxy={
+                                                      'server': 'http://138.197.150.103:8090',
+                                                      'username': 'kbc',
+                                                      'password': '347SP&Uwqt!2xZ7w',
+                                                  })
+        self.context = self.browser.new_context()
+        self.page = self.context.new_page()
 
     @allure.step('Open a site')
     def open_site(self):
@@ -245,3 +254,5 @@ class Registration():
             allure.attach(self.page.screenshot(), name='Save button is not clickable',
                           attachment_type=allure.attachment_type.PNG)
             raise AssertionError from e
+
+

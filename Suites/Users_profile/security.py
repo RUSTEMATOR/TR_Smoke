@@ -162,9 +162,9 @@ class Security(BaseSetUp, MainSuiteLocators):
     @allure.step("Positive Test change password")
     def positive_change_password(self):
         try:
-            self.oldpass_input.fill("193786Az.")
-            self.newpass_input.fill("193786Az..")
-            self.repeat_newpass.fill("193786Az..")
+            self.oldpass_input.fill("193786Az()")
+            self.newpass_input.fill("193786Az.")
+            self.repeat_newpass.fill("193786Az.")
             self.save_button.click()
             allure.attach(self.page.screenshot(), name='Old password field filled',
                           attachment_type=allure.attachment_type.PNG)
@@ -181,7 +181,9 @@ class Security(BaseSetUp, MainSuiteLocators):
             self.cleanup()
 
     def cleanup(self):
-        self.oldpass_input.fill("193786Az..")
-        self.newpass_input.fill("193786Az.")
-        self.repeat_newpass.fill("193786Az.")
+        self.oldpass_input.fill("193786Az.")
+        self.newpass_input.fill("193786Az()")
+        self.repeat_newpass.fill("193786Az()")
         self.save_button.click()
+
+

@@ -53,3 +53,4 @@ class ProvidersTest(BaseSetUp, GameSuitLocators):
 
         if invisible_providers:
             raise AssertionError(f"Providers not visible: {', '.join(invisible_providers)}")
+

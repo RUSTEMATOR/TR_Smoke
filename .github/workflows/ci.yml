@@ -25,21 +25,11 @@ jobs:
     - name: Install Chrome
       run: sudo apt-get install google-chrome-stable
 
-    # Install dependencies
     - name: Install dependencies
       run: pip install -r requirements.txt
 
     - name: Configure playwright
       run: playwright install
-
-    # Set up proxy
-    - name: Set up proxy
-      env:
-        HTTP_PROXY: http://kbc:347SP&Uwqt!2xZ7w@138.197.150.103:8090
-        HTTPS_PROXY: http://kbc:347SP&Uwqt!2xZ7w@138.197.150.103:8090
-      run: |
-        echo "HTTP_PROXY=$HTTP_PROXY" >> $GITHUB_ENV
-        echo "HTTPS_PROXY=$HTTPS_PROXY" >> $GITHUB_ENV
 
     - name: Run tests
       if: "github.event.inputs.deployment_target == 'Run tests'"

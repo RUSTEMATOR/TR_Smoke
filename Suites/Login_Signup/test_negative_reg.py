@@ -39,8 +39,16 @@ class TestData():
 
 class NegativeReg(TestData):
 
-    def __init__(self, page: Page):
-        self.page = page
+    def __init__(self, playwright: Playwright):
+        self.browser = playwright.chromium.launch(headless=False,
+                                                  proxy={
+                                                      'server': 'http://138.197.150.103:8090',
+                                                      'username': 'kbc',
+                                                      'password': '347SP&Uwqt!2xZ7w',
+                                                  })
+        self.context = self.browser.new_context()
+        self.page = self.context.new_page()
+
 
     @allure.title("Negative emails_check")
     # Define the test function
@@ -61,3 +69,4 @@ class NegativeReg(TestData):
             pass
         else:
             raise AssertionError(f"{email} is registered")
+

@@ -1,85 +1,16 @@
 import allure
 import time
 from Suites.Locators.page_elements import PageElementsTabs, SearchFunctions
+from Suites.Base.BaseSetUp import BaseSetUp
 
 
-class CasinoSideTabs(SearchFunctions):
+class CasinoSideTabs(SearchFunctions, BaseSetUp):
 
-    @allure.title("Go to site")
-    def open_site(self):
+    def set_up(self):
         try:
-            self.page.goto('https://tombriches.com/')
-            allure.attach(self.page.screenshot(), name='Page open', attachment_type=allure.attachment_type.PNG)
+            super().set_up()
         except Exception as e:
-            allure.attach(self.page.screenshot(), name='Page opening failed',
-                          attachment_type=allure.attachment_type.PNG)
             raise AssertionError from e
-        finally:
-            self.press_log_in_button()
-
-    @allure.step('Press on Log in button')
-    def press_log_in_button(self):
-        try:
-            self.log_in_button.click()
-            allure.attach(self.page.screenshot(), name='Log in button pressed',
-                          attachment_type=allure.attachment_type.PNG)
-        except Exception as e:
-            allure.attach(self.page.screenshot(), name='Log in button is not pressed',
-                          attachment_type=allure.attachment_type.PNG)
-            raise AssertionError from e
-        finally:
-            self.enter_credentials()
-
-    @allure.step('Enter credentials')
-    def enter_credentials(self):
-        try:
-            self.email_input.fill("samoilenkofluttershy@gmail.com")
-            allure.attach(self.page.screenshot(), name='E-mail field filled',
-                          attachment_type=allure.attachment_type.PNG)
-
-            self.password_input.fill("193786Az.")
-            allure.attach(self.page.screenshot(), name='Password field filled',
-                          attachment_type=allure.attachment_type.PNG)
-
-        except Exception as e:
-            allure.attach(self.page.screenshot(), name='E-mail field is not filled',
-                          attachment_type=allure.attachment_type.PNG)
-            allure.attach(self.page.screenshot(), name='Password field is not filled',
-                          attachment_type=allure.attachment_type.PNG)
-            raise AssertionError from e
-
-        finally:
-            self.press_confirm_log_in_button()
-
-    @allure.step('Confirm login')
-    def press_confirm_log_in_button(self):
-        try:
-            self.confirm_log_in_button.click()
-            allure.attach(self.page.screenshot(), name='Log in button pressed',
-                          attachment_type=allure.attachment_type.PNG)
-
-        except Exception as e:
-            allure.attach(self.page.screenshot(), name='Log in button is not pressed',
-                          attachment_type=allure.attachment_type.PNG)
-            raise AssertionError from e
-
-        finally:
-            time.sleep(10)
-            self.page.goto('https://tombriches.com/')
-            self.confirm_cookies()
-
-    @allure.step('Confirm cookies')
-    def confirm_cookies(self):
-        try:
-            self.cookie_popup.click()
-            allure.attach(self.page.screenshot(), name='Cookie popup confirmed',
-                          attachment_type=allure.attachment_type.PNG)
-        except Exception as e:
-            allure.attach(self.page.screenshot(), name='Cookie popup is not confirmed',
-                          attachment_type=allure.attachment_type.PNG)
-            raise AssertionError from e
-        finally:
-            self.open_all_games_tab()
 
     @allure.step('Open all games tab')
     def open_all_games_tab(self):

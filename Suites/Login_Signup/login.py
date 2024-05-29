@@ -1,30 +1,24 @@
 import allure
 import time
-from playwright.sync_api import Page
+from playwright.sync_api import Page, Playwright
+from Suites.Base.BaseSetUp import BaseSetUp
 
 
+class LoginRegistration(BaseSetUp):
 
-class LoginRegistration():
-    def __init__(self, page: Page):
-        self.page = page
-
-
-
-
-    @allure.title("Go to site")
-    def open_site(self):
-        try:
-            self.page.goto('https://tombriches.com/')
-            allure.attach(self.page.screenshot(), name='Page open', attachment_type=allure.attachment_type.PNG)
-        except Exception as e:
-            allure.attach(self.page.screenshot(), name='Page opening failed', attachment_type=allure.attachment_type.PNG)
-            raise AssertionError from e
-        finally:
-            self.press_sign_up_button()
-
+    def __init__(self, playwright: Playwright):
+        self.browser = playwright.chromium.launch(headless=False,
+                                                  proxy={
+                                                      'server': 'http://138.197.150.103:8090',
+                                                      'username': 'kbc',
+                                                      'password': '347SP&Uwqt!2xZ7w',
+                                                  })
+        self.context = self.browser.new_context()
+        self.page = self.context.new_page()
 
     def press_sign_up_button(self):
         try:
+            self.page.goto('https://tombriches.com/')
             sign_up_button = self.page.get_by_role("button", name="Sign up")
             sign_up_button.click()
             allure.attach(self.page.screenshot(), name='Sign up button clicked', attachment_type=allure.attachment_type.PNG)
@@ -67,7 +61,7 @@ class LoginRegistration():
     def fill_password_field(self):
         try:
             password_field = self.page.get_by_placeholder("Password")
-            password_field.fill("193786Az.")
+            password_field.fill("193786Az()")
             allure.attach(self.page.screenshot(), name='Password field filled', attachment_type=allure.attachment_type.PNG)
         except Exception as e:
             allure.attach(self.page.screenshot(), name='Password field is not filled', attachment_type=allure.attachment_type.PNG)
@@ -112,10 +106,24 @@ class LoginRegistration():
 
         time.sleep(10)
 
+    def teardown(self):
+        try:
+            super().teardown()
+        except Exception as e:
+            allure.attach(self.page.screenshot(), name='Tear down failed', attachment_type=allure.attachment_type.PNG)
+            raise AssertionError from e
+
 
 class LoginButton():
-    def __init__(self, page: Page):
-        self.page = page
+    def __init__(self, playwright: Playwright):
+        self.browser = playwright.chromium.launch(headless=False,
+                                                  proxy={
+                                                      'server': 'http://138.197.150.103:8090',
+                                                      'username': 'kbc',
+                                                      'password': '347SP&Uwqt!2xZ7w',
+                                                  })
+        self.context = self.browser.new_context()
+        self.page = self.context.new_page()
 
     @allure.title("Go to site")
     def open_site(self):
@@ -161,7 +169,7 @@ class LoginButton():
     def fill_password_field(self):
         try:
             password_field = self.page.get_by_placeholder("Password")
-            password_field.fill("193786Az.")
+            password_field.fill("193786Az()")
             allure.attach(self.page.screenshot(), name='Password field filled',
                           attachment_type=allure.attachment_type.PNG)
         except Exception as e:
@@ -211,3 +219,5 @@ class LoginButton():
             pass
         else:
             raise AssertionError("Email is not visible")
+
+

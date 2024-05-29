@@ -104,5 +104,3 @@ class InputTest(BaseSetUp, GameSuitLocators):
 
 
 
-
-

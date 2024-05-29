@@ -64,6 +64,11 @@ class BannersZeroDep(BaseSetUp, Locators):
                           attachment_type=allure.attachment_type.TEXT)
             raise AssertionError(f"Not all banners are visible. Visible banners: {visible_banners_str}")
             allure.attach(self.page.screenshot(), name='Check banners position', attachment_type=allure.attachment_type.PNG)
-
+    def teardown(self):
+        try:
+            super().teardown()
+        except Exception as e:
+            allure.attach(self.page.screenshot(), name='Tear down failed', attachment_type=allure.attachment_type.PNG)
+            raise AssertionError from e
 
 
