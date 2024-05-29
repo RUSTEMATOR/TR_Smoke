@@ -16,38 +16,38 @@ from Suites.Users_profile.security import Security
 from Suites.Users_profile.wallet import PositiveWalletTest, NegativeWalletTest
 
 
-# @allure.suite("Registration")
-# def test_registration(playwright):
-#     registration = Registration(playwright)
-#     registration.open_site()
-#     registration.browser.close()
-#
-#
-# @allure.suite("Negative registration")
-# @pytest.mark.parametrize("email", [(e) for e in TestData.test_data])
-# def test_negativereg(playwright, email):
-#     negative_reg = NegativeReg(playwright)
-#     negative_reg.test_negative_registration(playwright, email)
-#     negative_reg.browser.close()
-#
-# @allure.suite("Login_Signup via registration form")
-# def test_login(playwright):
-#     login = LoginRegistration(playwright)
-#     login.press_sign_up_button()
-#     login.browser.close()
-#
-# @allure.suite("Login_Signup via login button")
-# def test_login_button(playwright):
-#   login = LoginButton(playwright)
-#   login.open_site()
-#   login.browser.close()
-#
-# @allure.suite("Logout")
-# def test_logout(playwright):
-#     logout = Logout(playwright)
-#     logout.set_up()
-#     logout.enter_account()
-#     logout.browser.close()
+@allure.suite("Registration")
+def test_registration(playwright):
+    registration = Registration(playwright)
+    registration.open_site()
+    registration.browser.close()
+
+
+@allure.suite("Negative registration")
+@pytest.mark.parametrize("email", [(e) for e in TestData.test_data])
+def test_negativereg(playwright, email):
+    negative_reg = NegativeReg(playwright)
+    negative_reg.test_negative_registration(playwright, email)
+    negative_reg.browser.close()
+
+@allure.suite("Login_Signup via registration form")
+def test_login(playwright):
+    login = LoginRegistration(playwright)
+    login.press_sign_up_button()
+    login.browser.close()
+
+@allure.suite("Login_Signup via login button")
+def test_login_button(playwright):
+  login = LoginButton(playwright)
+  login.open_site()
+  login.browser.close()
+
+@allure.suite("Logout")
+def test_logout(playwright):
+    logout = Logout(playwright)
+    logout.set_up()
+    logout.enter_account()
+    logout.browser.close()
 
 @allure.suite("Sidebar")
 def test_casino_games_side(playwright):
