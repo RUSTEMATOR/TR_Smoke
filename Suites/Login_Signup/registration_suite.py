@@ -17,27 +17,9 @@ class Generator():
 
 
 
-class Registration():
-    def __init__(self, playwright: Playwright):
-        self.browser = playwright.chromium.launch(headless=True,
-                                                  proxy={
-                                                      'server': 'http://138.197.150.103:8090',
-                                                      'username': 'kbc',
-                                                      'password': '347SP&Uwqt!2xZ7w',
-                                                  })
-        self.context = self.browser.new_context()
-        self.page = self.context.new_page()
-
-    @allure.step('Open a site')
-    def open_site(self):
-        try:
-            self.page.goto('https://tombriches.com/')
-            allure.attach(self.page.screenshot(), name='Page open', attachment_type=allure.attachment_type.PNG)
-        except Exception as e:
-            allure.attach(self.page.screenshot(), name='Page opening failed', attachment_type=allure.attachment_type.PNG)
-            raise AssertionError from e
-        finally:
-            self.press_sign_up_button()
+class Registration(BaseSetUp):
+    def setup(self):
+        super().set_up_no_login()
 
     @allure.step('Press on Sign up button')
     def press_sign_up_button(self):
@@ -51,34 +33,6 @@ class Registration():
         finally:
             self.check_transf_to_login()
 
-    @allure.step('Check transfer to login tab')
-    def check_transf_to_login(self):
-        login_tab =  self.page.locator("p").filter(has_text="Log in")
-
-        try:
-            login_tab.click()
-            allure.attach(self.page.screenshot(), name='Transfer to login tab', attachment_type=allure.attachment_type.PNG)
-
-        except Exception as e:
-            allure.attach(self.page.screenshot(), name='Transfer to login tab failed', attachment_type=allure.attachment_type.PNG)
-            raise AssertionError from e
-        finally:
-            self.back_to_registration()
-
-    @allure.step('Go back to the registration tab')
-    def back_to_registration(self):
-        reg_tab = self.page.locator("p").filter(has_text=re.compile(r"^Sign up$"))
-
-        try:
-            reg_tab.click()
-            allure.attach(self.page.screenshot(), name='Go back to registration tab', attachment_type=allure.attachment_type.PNG)
-
-        except Exception as e:
-            allure.attach(self.page.screenshot(), name='Go back to registration tab failed', attachment_type=allure.attachment_type.PNG)
-            raise AssertionError from e
-
-        finally:
-            self.fill_reg_info()
 
     @allure.step('Fill registration form')
     def fill_reg_info(self):

@@ -1,12 +1,12 @@
 import re
 from playwright.sync_api import Page
-from Suites.Base.PageComponent import PageComponent
+# from Suites.Base.PageComponent import PageComponent
 
 
-class PageElementsGames(PageComponent):
+class PageElementsGames():
 
-    def __init__(self, page: Page):
-        super().__init__(page)
+    # def __init__(self, page: Page):
+    #     super().__init__(page)
 
     @property
     def log_in_button(self):
