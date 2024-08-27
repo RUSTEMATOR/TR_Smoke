@@ -19,7 +19,8 @@ from Suites.Users_profile.wallet import PositiveWalletTest, NegativeWalletTest
 @allure.suite("Registration")
 def test_registration(playwright):
     registration = Registration(playwright)
-    registration.open_site()
+    registration.set_up()
+
     registration.browser.close()
 
 

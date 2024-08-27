@@ -14,6 +14,7 @@ class BaseSetUp(PageElementsGames):
                                                       'username': 'kbc',
                                                       'password': '347SP&Uwqt!2xZ7w',
                                                   })
+
         self.context = self.browser.new_context()
         self.page = self.context.new_page()
 
@@ -89,3 +90,6 @@ class BaseSetUp(PageElementsGames):
         self.enter_credentials()
         self.press_confirm_log_in_button()
         self.confirm_cookies()
+
+    def set_up_no_login(self):
+        self.open_site()
