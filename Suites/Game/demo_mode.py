@@ -25,8 +25,6 @@ class DemoTest(BaseSetUp, GameSuitLocators):
                           attachment_type=allure.attachment_type.PNG)
             raise AssertionError from e
 
-        finally:
-            self.enter_game_name()
 
     @allure.step("Enter game name")
     def enter_game_name(self):
@@ -39,8 +37,7 @@ class DemoTest(BaseSetUp, GameSuitLocators):
             allure.attach(self.page.screenshot(), name='Game name is not entered',
                           attachment_type=allure.attachment_type.PNG)
             raise AssertionError from e
-        finally:
-            self.press_game_banner()
+
 
     @allure.step("Press game banner")
     def press_game_banner(self):
@@ -51,55 +48,6 @@ class DemoTest(BaseSetUp, GameSuitLocators):
 
         except Exception as e:
             allure.attach(self.page.screenshot(), name='Game banner is not pressed',
-                          attachment_type=allure.attachment_type.PNG)
-            raise AssertionError from e
-
-        finally:
-            self.press_demo_button()
-
-    @allure.step("Press play button")
-    def press_demo_button(self):
-        try:
-            self.demo_button.click()
-            allure.attach(self.page.screenshot(), name='Play button pressed',
-                          attachment_type=allure.attachment_type.PNG)
-
-        except Exception as e:
-            allure.attach(self.page.screenshot(), name='Play button is not pressed',
-                          attachment_type=allure.attachment_type.PNG)
-            raise AssertionError from e
-
-        finally:
-            time.sleep(8)
-            self.change_sum()
-
-    @allure.step("Change deposit sum in the deposit modal")
-    def change_sum(self):
-        try:
-            self.seven_five_zero_button.click()
-            allure.attach(self.page.screenshot(), name='Deposit sum changed',
-                          attachment_type=allure.attachment_type.PNG)
-
-        except Exception as e:
-            allure.attach(self.page.screenshot(), name='Deposit sum is not changed',
-                          attachment_type=allure.attachment_type.PNG)
-            raise AssertionError from e
-        finally:
-            self.check_deposit_modal()
-
-    @allure.step("Close ingame modal window")
-    def check_deposit_modal(self):
-        try:
-            if self.balance_text.is_visible():
-                pass
-
-            else:
-                allure.attach(self.page.screenshot(), name='Deposit modal window is not visible',
-                              attachment_type=allure.attachment_type.PNG)
-                raise AssertionError
-
-        except Exception as e:
-            allure.attach(self.page.screenshot(), name='Deposit modal window is not visible',
                           attachment_type=allure.attachment_type.PNG)
             raise AssertionError from e
 

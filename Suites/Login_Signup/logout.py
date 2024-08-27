@@ -27,8 +27,6 @@ class Logout(BaseSetUp):
         except Exception as e:
             allure.attach(self.page.screenshot(), name='Account button is not pressed', attachment_type=allure.attachment_type.PNG)
             raise AssertionError from e
-        finally:
-            self.log_out()
 
 
     @allure.step("Log out")

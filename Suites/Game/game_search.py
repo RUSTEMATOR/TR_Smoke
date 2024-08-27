@@ -23,8 +23,6 @@ class InputTest(BaseSetUp, GameSuitLocators):
             allure.attach(self.page.screenshot(), name='Input field is not clicked', attachment_type=allure.attachment_type.PNG)
             raise AssertionError from e
 
-        finally:
-            self.enter_game_name()
 
 
     @allure.step("Enter game name")
@@ -50,8 +48,6 @@ class InputTest(BaseSetUp, GameSuitLocators):
             allure.attach(self.page.screenshot(), name='Game banner is not pressed', attachment_type=allure.attachment_type.PNG)
             raise AssertionError from e
 
-        finally:
-            self.press_play_button()
 
 
     @allure.step("Press play button")
@@ -64,41 +60,18 @@ class InputTest(BaseSetUp, GameSuitLocators):
             allure.attach(self.page.screenshot(), name='Play button is not pressed', attachment_type=allure.attachment_type.PNG)
             raise AssertionError from e
 
-        finally:
-            self.close_ingame_modal()
 
     @allure.step("Close ingame modal window")
     def close_ingame_modal(self):
         try:
             self.ingame_close_button.click()
             allure.attach(self.page.screenshot(), name='Ingame modal window closed', attachment_type=allure.attachment_type.PNG)
-
+            time.sleep(10)
         except Exception as e:
             allure.attach(self.page.screenshot(), name='Ingame modal window is not closed', attachment_type=allure.attachment_type.PNG)
             raise AssertionError from e
 
-        finally:
-            time.sleep(10)
-            self.make_a_bet()
 
-
-    @allure.step("Make a bet")
-    def make_a_bet(self):
-        try:
-            self.spin_button.click()
-            allure.attach(
-                self.page.screenshot(),
-                name='Bet button pressed',
-                attachment_type=allure.attachment_type.PNG
-            )
-
-        except Exception as e:
-            allure.attach(
-                self.page.screenshot(),
-                name='Bet button is not pressed',
-                attachment_type=allure.attachment_type.PNG
-            )
-            raise AssertionError from e
 
 
 

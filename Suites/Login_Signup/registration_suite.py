@@ -1,7 +1,7 @@
 import allure
 import time
 import re
-from playwright.sync_api import sync_playwright, Playwright
+from playwright.sync_api import sync_playwright, Playwright, expect
 from Suites.Base.BaseSetUp import BaseSetUp
 
 class Generator():
@@ -18,48 +18,49 @@ class Generator():
 
 
 class Registration(BaseSetUp):
-    def setup(self):
-        super().set_up_no_login()
+    def set_up(self):
+        try:
+            super().set_up_no_login()
+            allure.attach(self.page.screenshot(), name='Set up passed', attachment_type=allure.attachment_type.PNG)
+
+        except Exception as exc:
+            allure.attach(self.page.screenshot(), name='Set up failed', attachment_type=allure.attachment_type.PNG)
+            raise AssertionError(exc)
 
     @allure.step('Press on Sign up button')
     def press_sign_up_button(self):
-        sign_up_button = self.page.get_by_role("button", name="Sign up")
         try:
-            sign_up_button.click()
+            self.sign_up_button.click()
             allure.attach(self.page.screenshot(), name='Sign up button pressed', attachment_type=allure.attachment_type.PNG)
-        except Exception as e:
+            expect(self.sign_up_button).to_be_visible()
+
+        except Exception as exc:
             allure.attach(self.page.screenshot(), name='Sign up button is not pressed', attachment_type=allure.attachment_type.PNG)
-            raise AssertionError from e
-        finally:
-            self.check_transf_to_login()
+            raise AssertionError(exc)
 
-
-    @allure.step('Fill registration form')
-    def fill_reg_info(self):
-        email_field = self.page.get_by_placeholder("E-mail")
-        password_field = self.page.get_by_placeholder("Password")
-        try:
-            email_field.click()
-            allure.attach(self.page.screenshot(), name='E-mail field clicked', attachment_type=allure.attachment_type.PNG)
-            self.fill_email_field(email_field)
-            password_field.click()
-            allure.attach(self.page.screenshot(), name='Password field clicked', attachment_type=allure.attachment_type.PNG)
-            self.fill_password_field(password_field)
-        except Exception as e:
-            allure.attach(self.page.screenshot(), name='Registration form is not filled', attachment_type=allure.attachment_type.PNG)
-            raise AssertionError from e
-        finally:
-            self.check_18_years()
 
     @allure.step('Fill E-mail field')
-    def fill_email_field(self, email_field):
-        email_field.fill(Generator.generate_random_email())
-        allure.attach(self.page.screenshot(), name='E-mail field filled', attachment_type=allure.attachment_type.PNG)
+    def fill_email_field(self):
+        email_field = self.page.locator("#email-input")
+        random_email = Generator.generate_random_email()
+        try:
+            email_field.fill(random_email)
+            allure.attach(self.page.screenshot(), name='E-mail field filled', attachment_type=allure.attachment_type.PNG)
+            expect(email_field).to_have_value(random_email)
+        except Exception as exc:
+            allure.attach(self.page.screenshot(), name='E-mail field is not filled', attachment_type=allure.attachment_type.PNG)
+            raise AssertionError(exc)
 
     @allure.step('Fill Password field')
-    def fill_password_field(self, password_field):
-        password_field.fill("193786Az()")
-        allure.attach(self.page.screenshot(), name='Password field filled', attachment_type=allure.attachment_type.PNG)
+    def fill_password_field(self):
+        password_field = self.page.locator("#password-input")
+        try:
+            password_field.fill("193786Az()")
+            allure.attach(self.page.screenshot(), name='Password field filled', attachment_type=allure.attachment_type.PNG)
+            expect(password_field).to_have_value("193786Az()")
+        except Exception as exc:
+            allure.attach(self.page.screenshot(), name='Password field is not filled', attachment_type=allure.attachment_type.PNG)
+            raise AssertionError(exc)
 
     @allure.step('18 years checkbox is checked')
     def check_18_years(self):
@@ -67,11 +68,10 @@ class Registration(BaseSetUp):
         try:
             checkbox.click()
             allure.attach(self.page.screenshot(), name='18 years checkbox clicked', attachment_type=allure.attachment_type.PNG)
-        except Exception as e:
+        except Exception as exc :
             allure.attach(self.page.screenshot(), name='18 years checkbox is not checked', attachment_type=allure.attachment_type.PNG)
-            raise AssertionError from e
-        finally:
-            self.press_final_sign_up_button()
+            raise AssertionError(exc)
+
 
     @allure.step('Press on final Sign up button')
     def press_final_sign_up_button(self):
@@ -79,18 +79,14 @@ class Registration(BaseSetUp):
         try:
             sign_up_button.click()
             allure.attach(self.page.screenshot(), name='Final Sign up button pressed', attachment_type=allure.attachment_type.PNG)
-        except Exception as e:
+            expect(self.deposit_button).to_be_visible(timeout=10000_0000)
+        except Exception as exc :
             allure.attach(self.page.screenshot(), name='Final Sign up button is not pressed', attachment_type=allure.attachment_type.PNG)
-            raise AssertionError from e
-        finally:
-            time.sleep(10)
-            self.refresh_page()
+            raise AssertionError(exc)
+
 
     def refresh_page(self):
-        try:
-            self.page.reload()
-        finally:
-           self.enter_account()
+        self.page.reload()
 
 
 
@@ -102,11 +98,10 @@ class Registration(BaseSetUp):
             account_button.click()
             allure.attach(self.page.screenshot(), name='Account button pressed', attachment_type=allure.attachment_type.PNG)
 
-        except Exception as e:
+        except Exception as exc :
             allure.attach(self.page.screenshot(), name='Account button is not pressed', attachment_type=allure.attachment_type.PNG)
-            raise AssertionError from e
-        finally:
-            self.fill_personal_info()
+            raise AssertionError(exc)
+
 
     @allure.step('Fill in personal info')
     def fill_personal_info(self):
@@ -126,53 +121,61 @@ class Registration(BaseSetUp):
             allure.attach(self.page.screenshot(), name='First name field clicked', attachment_type=allure.attachment_type.PNG)
             first_name_field.fill("Gregory")
             allure.attach(self.page.screenshot(), name='First name field filled', attachment_type=allure.attachment_type.PNG)
-
+            expect(first_name_field).to_have_value("Gregory")
 
             last_name_field.click()
             allure.attach(self.page.screenshot(), name='Last name field clicked', attachment_type=allure.attachment_type.PNG)
             last_name_field.fill("Giga")
             allure.attach(self.page.screenshot(), name='Last name field filled', attachment_type=allure.attachment_type.PNG)
+            expect(last_name_field).to_have_value("Giga")
 
             day_field.click()
             allure.attach(self.page.screenshot(), name='Day field clicked', attachment_type=allure.attachment_type.PNG)
             self.page.get_by_text("29").click()
             allure.attach(self.page.screenshot(), name='Day field filled', attachment_type=allure.attachment_type.PNG)
+            expect(day_field).to_have_value("29")
             month_field.click()
             allure.attach(self.page.screenshot(), name='Month field clicked', attachment_type=allure.attachment_type.PNG)
 
             self.page.get_by_text("Mar").click()
+            allure.attach(self.page.screenshot(), name='Month field filled', attachment_type=allure.attachment_type.PNG)
+            expect(month_field).to_have_value("Mar")
 
 
             year_field.click()
             allure.attach(self.page.screenshot(), name='Year field clicked', attachment_type=allure.attachment_type.PNG)
             self.page.get_by_text("1996").click()
             allure.attach(self.page.screenshot(), name='Year field filled', attachment_type=allure.attachment_type.PNG)
+            expect(year_field).to_have_value("1996")
 
             city_field.click()
             allure.attach(self.page.screenshot(), name='City field clicked', attachment_type=allure.attachment_type.PNG)
             city_field.fill("Testik")
             allure.attach(self.page.screenshot(), name='City field filled', attachment_type=allure.attachment_type.PNG)
+            expect(city_field).to_have_value("Testik")
 
             postcode_field.click()
             allure.attach(self.page.screenshot(), name='Postcode field clicked', attachment_type=allure.attachment_type.PNG)
             postcode_field.fill("12345")
             allure.attach(self.page.screenshot(), name='Postcode field filled', attachment_type=allure.attachment_type.PNG)
+            expect(postcode_field).to_have_value("12345")
 
             full_address_house_number_field.click()
             allure.attach(self.page.screenshot(), name='Full address (house number, field clicked', attachment_type=allure.attachment_type.PNG)
             full_address_house_number_field.fill("Scripting street 34")
+            allure.attach(self.page.screenshot(), name='Full address (house number, field filled', attachment_type=allure.attachment_type.PNG)
+            expect(full_address_house_number_field).to_have_value("Scripting street 34")
 
             phone_number_field.click()
             allure.attach(self.page.screenshot(), name='Phone number field clicked', attachment_type=allure.attachment_type.PNG)
-            phone_number_field.fill("855-588-901")
+            phone_number_field.fill("418-691-2020")
+            allure.attach(self.page.screenshot(), name='Phone number field filled', attachment_type=allure.attachment_type.PNG)
+            expect(phone_number_field).to_have_value("418-691-2020")
 
-        except Exception as e:
+        except Exception as exc :
             allure.attach(self.page.screenshot(), name='Personal info is not filled', attachment_type=allure.attachment_type.PNG)
-            raise AssertionError from e
+            raise AssertionError(exc)
 
-        finally:
-            self.confirm_cookies()
-            self.save_personal_info()
 
     @allure.step('confirm cookies')
     def confirm_cookies(self):
@@ -187,9 +190,9 @@ class Registration(BaseSetUp):
             save_button.click()
             allure.attach(self.page.screenshot(), name='Save button pressed', attachment_type=allure.attachment_type.PNG)
 
-        except Exception as e:
+        except Exception as exc :
             allure.attach(self.page.screenshot(), name='Save button is not pressed', attachment_type=allure.attachment_type.PNG)
-            raise AssertionError from e
+            raise AssertionError(exc)
 
     def verify_the_data_is_saved(self):
 
@@ -204,9 +207,9 @@ class Registration(BaseSetUp):
                               attachment_type=allure.attachment_type.PNG)
                 return False
 
-        except Exception as e:
+        except Exception as exc :
             allure.attach(self.page.screenshot(), name='Save button is not clickable',
                           attachment_type=allure.attachment_type.PNG)
-            raise AssertionError from e
+            raise AssertionError(exc)
 
 

@@ -1,32 +1,18 @@
 import allure
 import time
-from playwright.sync_api import Page, Playwright
+from playwright.sync_api import Page, Playwright, expect
 from Suites.Base.BaseSetUp import BaseSetUp
 
 
 class LoginRegistration(BaseSetUp):
 
-    def __init__(self, playwright: Playwright):
-        self.browser = playwright.chromium.launch(headless=True,
-                                                  proxy={
-                                                      'server': 'http://138.197.150.103:8090',
-                                                      'username': 'kbc',
-                                                      'password': '347SP&Uwqt!2xZ7w',
-                                                  })
-        self.context = self.browser.new_context()
-        self.page = self.context.new_page()
-
-    def press_sign_up_button(self):
+    def set_up(self):
         try:
-            self.page.goto('https://tombriches.com/')
-            sign_up_button = self.page.get_by_role("button", name="Sign up")
-            sign_up_button.click()
-            allure.attach(self.page.screenshot(), name='Sign up button clicked', attachment_type=allure.attachment_type.PNG)
-        except Exception as e:
-            allure.attach(self.page.screenshot(), name='Sign up button is not clicked', attachment_type=allure.attachment_type.PNG)
-            raise AssertionError from e
-        finally:
-            self.check_transf_to_login()
+            super().set_up_no_login()
+            allure.attach(self.page.screenshot(), name='Set up passed', attachment_type=allure.attachment_type.PNG)
+        except Exception as exc:
+            allure.attach(self.page.screenshot(), name='Set up failed', attachment_type=allure.attachment_type.PNG)
+            raise AssertionError(exc)
 
     @allure.step('Check transfer to login tab')
     def check_transf_to_login(self):
@@ -37,12 +23,11 @@ class LoginRegistration(BaseSetUp):
             allure.attach(self.page.screenshot(), name='Transfer to login tab',
                           attachment_type=allure.attachment_type.PNG)
 
-        except Exception as e:
+        except Exception as exc:
             allure.attach(self.page.screenshot(), name='Transfer to login tab failed',
                           attachment_type=allure.attachment_type.PNG)
-            raise AssertionError from e
-        finally:
-            self.fill_email()
+            raise AssertionError(exc)
+
 
 
     @allure.step("Fill in credentials")
@@ -51,11 +36,10 @@ class LoginRegistration(BaseSetUp):
             email_field = self.page.get_by_placeholder("E-mail")
             email_field.fill("samoilenkofluttershy@gmail.com")
             allure.attach(self.page.screenshot(), name='Username field filled', attachment_type=allure.attachment_type.PNG)
-        except Exception as e:
+        except Exception as exc:
             allure.attach(self.page.screenshot(), name='Username field is not filled', attachment_type=allure.attachment_type.PNG)
-            raise AssertionError from e
-        finally:
-            self.fill_password_field()
+            raise AssertionError(exc)
+
 
     @allure.step("Fill in password")
     def fill_password_field(self):
@@ -63,11 +47,10 @@ class LoginRegistration(BaseSetUp):
             password_field = self.page.get_by_placeholder("Password")
             password_field.fill("193786Az()")
             allure.attach(self.page.screenshot(), name='Password field filled', attachment_type=allure.attachment_type.PNG)
-        except Exception as e:
+        except Exception as exc:
             allure.attach(self.page.screenshot(), name='Password field is not filled', attachment_type=allure.attachment_type.PNG)
-            raise AssertionError from e
-        finally:
-            self.click_log_in_button()
+            raise AssertionError(exc)
+
 
     @allure.step("Click log in button")
     def click_log_in_button(self):
@@ -75,13 +58,10 @@ class LoginRegistration(BaseSetUp):
             login_button = self.page.locator('xpath=/html/body/div[2]/div/div[2]/div/div/div/div[1]/div[2]/button')
             login_button.click()
             allure.attach(self.page.screenshot(), name='Log in button clicked', attachment_type=allure.attachment_type.PNG)
-        except Exception as e:
+        except Exception as exc:
             allure.attach(self.page.screenshot(), name='Log in button is not clicked', attachment_type=allure.attachment_type.PNG)
-            raise AssertionError from e
-        finally:
-            time.sleep(10)
-            self.page.reload()
-            self.enter_account()
+            raise AssertionError(exc)
+
     @allure.step("Enter account")
     def enter_account(self):
         try:
@@ -89,53 +69,27 @@ class LoginRegistration(BaseSetUp):
             account_button.click()
             allure.attach(self.page.screenshot(), name='Account button pressed', attachment_type=allure.attachment_type.PNG)
 
-        except Exception as e:
+        except Exception as exc:
             allure.attach(self.page.screenshot(), name='Account button is not pressed', attachment_type=allure.attachment_type.PNG)
-            raise AssertionError from e
-        finally:
-            self.check_email()
+            raise AssertionError(exc)
+
 
     @allure.step("Check email")
     def check_email(self):
-        email = self.page.get_by_text("samoilenkofluttershy@gmail.com")
-
-        if email.is_visible():
-            pass
-        else:
-            raise AssertionError("Email is not visible")
+        welcome_message = self.page.locator(".text-map_welcome")
+        expect(welcome_message).to_contain_text('Welcome, samoilenkofluttershy@gmail.com')
 
         time.sleep(10)
 
-    def teardown(self):
+
+
+class LoginButton(BaseSetUp):
+    def set_up(self):
         try:
-            super().teardown()
-        except Exception as e:
-            allure.attach(self.page.screenshot(), name='Tear down failed', attachment_type=allure.attachment_type.PNG)
-            raise AssertionError from e
-
-
-class LoginButton():
-    def __init__(self, playwright: Playwright):
-        self.browser = playwright.chromium.launch(headless=True,
-                                                  proxy={
-                                                      'server': 'http://138.197.150.103:8090',
-                                                      'username': 'kbc',
-                                                      'password': '347SP&Uwqt!2xZ7w',
-                                                  })
-        self.context = self.browser.new_context()
-        self.page = self.context.new_page()
-
-    @allure.title("Go to site")
-    def open_site(self):
-        try:
-            self.page.goto('https://tombriches.com/')
-            allure.attach(self.page.screenshot(), name='Page open', attachment_type=allure.attachment_type.PNG)
-        except Exception as e:
-            allure.attach(self.page.screenshot(), name='Page opening failed',
-                          attachment_type=allure.attachment_type.PNG)
-            raise AssertionError from e
-        finally:
-            self.press_log_in_button()
+            super().set_up_no_login()
+            allure.attach(self.page.screenshot(), name='Set up passed', attachment_type=allure.attachment_type.PNG)
+        except Exception as exc:
+            allure.attach(self.page.screenshot(), name='Set up failed', attachment_type=allure.attachment_type.PNG)
 
 
     @allure.step("Press log in button")
@@ -145,11 +99,10 @@ class LoginButton():
         try:
             log_in_button.click()
             allure.attach(self.page.screenshot(), name='Log in button clicked', attachment_type=allure.attachment_type.PNG)
-        except Exception as e:
+        except Exception as exc:
             allure.attach(self.page.screenshot(), name='Log in button is not clicked', attachment_type=allure.attachment_type.PNG)
-            raise AssertionError from e
-        finally:
-            self.fill_email()
+            raise AssertionError(exc)
+
 
     @allure.step("Fill in credentials")
     def fill_email(self):
@@ -158,12 +111,11 @@ class LoginButton():
             email_field.fill("samoilenkofluttershy@gmail.com")
             allure.attach(self.page.screenshot(), name='Username field filled',
                           attachment_type=allure.attachment_type.PNG)
-        except Exception as e:
+        except Exception as exc:
             allure.attach(self.page.screenshot(), name='Username field is not filled',
                           attachment_type=allure.attachment_type.PNG)
-            raise AssertionError from e
-        finally:
-            self.fill_password_field()
+            raise AssertionError(exc)
+
 
     @allure.step("Fill in password")
     def fill_password_field(self):
@@ -172,12 +124,11 @@ class LoginButton():
             password_field.fill("193786Az()")
             allure.attach(self.page.screenshot(), name='Password field filled',
                           attachment_type=allure.attachment_type.PNG)
-        except Exception as e:
+        except Exception as exc:
             allure.attach(self.page.screenshot(), name='Password field is not filled',
                           attachment_type=allure.attachment_type.PNG)
-            raise AssertionError from e
-        finally:
-            self.click_log_in_button()
+            raise AssertionError(exc)
+
 
     @allure.step("Click log in button")
     def click_log_in_button(self):
@@ -186,14 +137,10 @@ class LoginButton():
             login_button.click()
             allure.attach(self.page.screenshot(), name='Log in button clicked',
                           attachment_type=allure.attachment_type.PNG)
-        except Exception as e:
+        except Exception as exc:
             allure.attach(self.page.screenshot(), name='Log in button is not clicked',
                           attachment_type=allure.attachment_type.PNG)
-            raise AssertionError from e
-        finally:
-            time.sleep(5)
-            self.page.reload()
-            self.enter_account()
+            raise AssertionError(exc)
 
     @allure.step("Enter account")
     def enter_account(self):
@@ -203,21 +150,16 @@ class LoginButton():
             allure.attach(self.page.screenshot(), name='Account button pressed',
                           attachment_type=allure.attachment_type.PNG)
 
-        except Exception as e:
+        except Exception as exc:
             allure.attach(self.page.screenshot(), name='Account button is not pressed',
                           attachment_type=allure.attachment_type.PNG)
-            raise AssertionError from e
-        finally:
-            time.sleep(10)
-            self.check_email()
+            raise AssertionError(exc)
+
 
     @allure.step("Check email")
     def check_email(self):
-        email = self.page.get_by_text("samoilenkofluttershy@gmail.com")
+        welcome_message = self.page.locator(".text-map_welcome")
+        expect(welcome_message).to_contain_text('Welcome, samoilenkofluttershy@gmail.com')
 
-        if email.is_visible():
-            pass
-        else:
-            raise AssertionError("Email is not visible")
 
 

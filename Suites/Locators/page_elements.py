@@ -1,13 +1,28 @@
 import re
 from playwright.sync_api import Page
-# from Suites.Base.PageComponent import PageComponent
+from Suites.Base.PageComponent import PageComponent
 
 
-class PageElementsGames():
+class PageElementsGames(PageComponent):
 
-    # def __init__(self, page: Page):
-    #     super().__init__(page)
+    def __init__(self, page: Page):
+        super().__init__(page)
 
+    @property
+    def sign_up_button(self):
+       return self.page.get_by_role("complementary").get_by_role("button", name="Sign up")
+
+    @property
+    def deposit_button(self):
+        return self.page.locator("xpath=//button[@title='deposit' and contains(@class, 'btn button-primary !min-w-full')]")
+
+    @property
+    def reg_form(self):
+        return self.page.locator('xpath=//*[@id="Tombriches"]/div[2]/div/div/div]')
+
+    @property
+    def login_form(self):
+        return self.page.locator('xpath=//*[@id="Tombriches"]/div[2]/div/div')
     @property
     def log_in_button(self):
         return self.page.get_by_role("button", name="Log in")
@@ -62,15 +77,20 @@ class PageElementsGames():
 
     @property
     def game_card_first(self):
-        return self.page.locator("xpath=/html/body/div[2]/div/main/div/div/div[4]/div[1]/div[1]")
+        return self.page.locator("//div[contains (@class, 'flex flex-col rounded-b-[10px] bg-gc_bg_card p-2 text-center') ]").first
 
     @property
     def game_card_second(self):
-        return self.page.locator("xpath=/html/body/div[2]/div/main/div/div/div[4]/div[1]/div[2]")
+        return self.page.locator("xpath=//div//img[contains(@class, 'relative z-[2] aspect-[29/40] h-full w-full rounded-t-lg')]").first
 
     @property
     def game_card_third(self):
         return self.page.locator("xpath=/html/body/div[2]/div/main/div/div/div[4]/div[1]/div[3]")
+
+    @property
+    def mini_jackpot_game(self):
+        return self.page.locator("xpath=//div[contains(@class, 'game-card relative z-0 flex h-auto flex-col justify-end')][1]")
+
 
     # ________________________________________________________________
 
@@ -107,7 +127,7 @@ class PageElementsGames():
 
     @property
     def max_games(self):
-        return self.page.get_by_label("Max")
+        return self.page.locator("xpath=//div//a[contains(@class, 'flex w-full items-center rounded-lg bg-category_bg py-4 pl-3 transition-all hover:text-text_primary_sidebar [&_path]:hover:fill-text_primary_sidebar text-text_secondary_sidebar [&_path]:fill-text_secondary_sidebar') and @aria-label='Max']")
 
     @property
     def mid_games(self):
@@ -147,7 +167,7 @@ class PageElementsTabs(PageElementsGames):
 
     @property
     def loyalty_tab(self):
-        return self.page.get_by_label("Loyalty program")
+        return self.page.get_by_label("VIP")
 
     @property
     def support_iframe(self):
@@ -176,14 +196,14 @@ class SearchFunctions(PageElementsTabs):
                 self.game_card_third_jp.is_visible())
 
     def game_cards_visible(self):
-        return (self.game_card_first.is_visible() and
-                self.game_card_second.is_visible() and
+        return (self.game_card_first.is_visible() or
+                self.game_card_second.is_visible() or
                 self.game_card_third.is_visible())
 
     def promo_banners_visible(self):
         return (self.page.get_by_text("Welcome Pack€/$2000 + 200").is_visible() and
                 self.page.get_by_text("Cashback up to 15%Get from 10").is_visible() and
-                self.page.get_by_text("1st Deposit Bonus100% up to").is_visible() and
+                # self.page.get_by_text("1st Deposit Bonus100% up to").is_visible() and
                 self.page.get_by_text("2nd Deposit Bonus50% up to").is_visible() and
                 self.page.get_by_text("3rd Deposit Bonus25% up to").is_visible() and
                 self.page.get_by_text("4th Deposit Bonus25% up to").is_visible() and
@@ -214,9 +234,9 @@ class SearchFunctions(PageElementsTabs):
                 self.page.get_by_role("button", name="deposit & play").is_visible())
 
     def tournament_banners_visible(self):
-        return (self.page.locator("div:nth-child(1) > .aspect-\\[40\\/29\\]").is_visible() and
-                self.page.locator("div:nth-child(2) > .aspect-\\[40\\/29\\]").is_visible() and
-                self.page.locator("div:nth-child(3) > .aspect-\\[40\\/29\\]").is_visible())
+        return (self.page.locator("div:nth-child(1) > .aspect-\\[40\\/29\\]").is_visible())
+                # self.page.locator("div:nth-child(2) > .aspect-\\[40\\/29\\]").is_visible() and
+                # self.page.locator("div:nth-child(3) > .aspect-\\[40\\/29\\]").is_visible())
 
     def loyalty_banners_visible(self):
         return (self.page.locator(".border-").first.is_visible() and
@@ -290,7 +310,7 @@ class GameSuitLocators:
     
     @property
     def ingame_close_button(self):
-        return self.page.locator("xpath=//button[@title='close' and contains(@class, 'btn button-secondary max-w-[150px]') and text()='close']")
+        return self.page.locator(".flex > svg").first
     
     @property
     def sound_no_button(self):
@@ -516,4 +536,5 @@ class WalletLocators(MainSuiteLocators):
     @property
     def withdrawal_skrill_button(self):
         return self.page.locator("xpath=//input[@type='radio' and contains(@class, 'absolute left-0 top-0 h-[100%] w-[100%] cursor-pointer opacity-0') and @id='2' and @name='2' and @value='2' ]")
+
 

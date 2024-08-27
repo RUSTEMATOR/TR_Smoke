@@ -20,14 +20,11 @@ class ProvidersTest(BaseSetUp, GameSuitLocators):
         try:
             self.providers_dropdown.click()
             allure.attach(self.page.screenshot(), name='Provider dropdown opened', attachment_type=allure.attachment_type.PNG)
-
+            time.sleep(4)
         except Exception as e:
             allure.attach(self.page.screenshot(), name='Provider dropdown is not opened', attachment_type=allure.attachment_type.PNG)
             raise AssertionError from e
 
-        finally:
-            time.sleep(4)
-            self.check_providers()
 
 
     @allure.step('Check providers')
