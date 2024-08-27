@@ -27,8 +27,6 @@ class Security(BaseSetUp, MainSuiteLocators):
                           attachment_type=allure.attachment_type.PNG)
             raise AssertionError from e
 
-        finally:
-            self.switch_to_security_tab()
 
 
     @allure.step("Switch to security tab")
@@ -43,8 +41,6 @@ class Security(BaseSetUp, MainSuiteLocators):
                           attachment_type=allure.attachment_type.PNG)
             raise AssertionError from e
 
-        finally:
-            self.negative_enter_old_password()
 
     @allure.step("Negative Test Enter old password")
     def negative_enter_old_password(self):
@@ -59,8 +55,6 @@ class Security(BaseSetUp, MainSuiteLocators):
                           attachment_type=allure.attachment_type.PNG)
             raise AssertionError from e
 
-        finally:
-            self.negative_enter_new_password()
 
     @allure.step("Negative Test enter new password")
     def negative_enter_new_password(self):
@@ -75,8 +69,6 @@ class Security(BaseSetUp, MainSuiteLocators):
                           attachment_type=allure.attachment_type.PNG)
             raise AssertionError from e
 
-        finally:
-            self.negative_enter_confirm_password()
 
 
     @allure.step("Negative Test enter confirm password")
@@ -92,8 +84,6 @@ class Security(BaseSetUp, MainSuiteLocators):
                           attachment_type=allure.attachment_type.PNG)
             raise AssertionError from e
 
-        finally:
-            self.negative_click_save_button()
 
     @allure.step("Negative Test click save button")
     def negative_click_save_button(self):
@@ -107,8 +97,6 @@ class Security(BaseSetUp, MainSuiteLocators):
                           attachment_type=allure.attachment_type.PNG)
             raise AssertionError from e
 
-        finally:
-            self.expect_error_popup()
 
     @allure.step("Expect error popup")
     def expect_error_popup(self):
@@ -117,17 +105,13 @@ class Security(BaseSetUp, MainSuiteLocators):
             allure.attach(self.page.screenshot(), name='Error popup is visible',
                           attachment_type=allure.attachment_type.PNG)
             allure.attach("Error popup check successful.", name='Error popup check passed', attachment_type=allure.attachment_type.TEXT)
+            self.page.reload()
 
         except Exception as e:
             allure.attach(self.page.screenshot(), name='Error popup is not visible',
                           attachment_type=allure.attachment_type.PNG)
             allure.attach("Error popup check failed.", name='Error popup check failed', attachment_type=allure.attachment_type.TEXT)
             raise AssertionError from e
-
-
-        finally:
-            self.page.reload()
-            self.negative_wrong_repeated_newpassword()
 
     @allure.step("Negative Test wrong repeated new password")
     def negative_wrong_repeated_newpassword(self):
@@ -142,10 +126,12 @@ class Security(BaseSetUp, MainSuiteLocators):
             if self.save_button.get_attribute("disabled") is not None:
                 allure.attach(self.page.screenshot(), name='Save button is not clickable',
                               attachment_type=allure.attachment_type.PNG)
+                self.page.reload()
                 return True
             else:
                 allure.attach(self.page.screenshot(), name='Save button is clickable',
                               attachment_type=allure.attachment_type.PNG)
+                self.page.reload()
                 return False
 
         except Exception as e:
@@ -153,11 +139,6 @@ class Security(BaseSetUp, MainSuiteLocators):
                           attachment_type=allure.attachment_type.PNG)
             allure.attach("Save button check failed.", name='Save button check failed', attachment_type=allure.attachment_type.TEXT)
             raise AssertionError from e
-
-        finally:
-            self.page.reload()
-            self.positive_change_password()
-
 
     @allure.step("Positive Test change password")
     def positive_change_password(self):
@@ -170,15 +151,12 @@ class Security(BaseSetUp, MainSuiteLocators):
                           attachment_type=allure.attachment_type.PNG)
 
             expect(self.password_changed_success_popup).to_be_visible()
+            self.page.reload()
 
         except Exception as e:
             allure.attach(self.page.screenshot(), name='Password changed success popup is not visible',
                           attachment_type=allure.attachment_type.PNG)
             raise AssertionError from e
-
-        finally:
-            self.page.reload()
-            self.cleanup()
 
     def cleanup(self):
         self.oldpass_input.fill("193786Az.")

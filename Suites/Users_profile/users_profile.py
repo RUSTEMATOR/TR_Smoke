@@ -26,8 +26,6 @@ class PersonalInfVer(BaseSetUp, MainSuiteLocators):
             allure.attach(self.page.screenshot(), name='Account button is not pressed', attachment_type=allure.attachment_type.PNG)
             raise AssertionError from e
 
-        finally:
-            self.check_filled_inputs()
 
 
     @allure.step("Check filled inputs")
@@ -61,11 +59,6 @@ class PersonalInfVer(BaseSetUp, MainSuiteLocators):
             # Reraise the exception to ensure the test framework can handle it
             raise AssertionError from e
 
-        finally:
-            self.check_email_copy()
-
-
-
     @allure.step("Check email copy")
     def check_email_copy(self):
         try:
@@ -89,9 +82,6 @@ class PersonalInfVer(BaseSetUp, MainSuiteLocators):
 
             # Reraise the exception to ensure the test framework can handle it
             raise AssertionError from e
-
-        finally:
-            self.check_gender_change()
 
 
     @allure.step("Change gender")
@@ -126,8 +116,6 @@ class PersonalInfVer(BaseSetUp, MainSuiteLocators):
             allure.attach(self.page.screenshot(), name='Error during changing gender',
                           attachment_type=allure.attachment_type.PNG)
 
-        finally:
-            self.switch_to_verification_tab()
 
 
     @allure.step("Switch to Verification tab")
@@ -149,8 +137,6 @@ class PersonalInfVer(BaseSetUp, MainSuiteLocators):
             allure.attach(self.page.screenshot(), name='Error during switching to verification tab',
                           attachment_type=allure.attachment_type.PNG)
 
-        finally:
-            self.check_the_page()
 
 
     @allure.step("Check the page")
