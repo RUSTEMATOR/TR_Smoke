@@ -44,12 +44,12 @@ class TestData():
 class NegativeReg(TestData):
 
     def __init__(self, playwright: Playwright):
-        self.browser = playwright.chromium.launch(headless=False,
-                                                  # proxy={
-                                                  #     'server': 'http://138.197.150.103:8090',
-                                                  #     'username': 'kbc',
-                                                  #     'password': '347SP&Uwqt!2xZ7w',
-                                                  # }
+        self.browser = playwright.chromium.launch(headless=True,
+                                                   proxy={
+                                                       'server': 'http://138.197.150.103:8090',
+                                                       'username': 'kbc',
+                                                       'password': '347SP&Uwqt!2xZ7w',
+                                                   }
         )
         self.context = self.browser.new_context()
         self.page = self.context.new_page()
